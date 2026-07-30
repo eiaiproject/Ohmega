@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" role="img" aria-label="Placeholder logo SIG">
+  <rect width="300" height="300" rx="24" fill="#DDEDE3" stroke="#245D40" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="150" y="140" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-size="22" font-weight="800" fill="#173F2C">Logo SIG</text>
+  <text x="150" y="172" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-size="14" fill="#607067">Logo akan ditambahkan</text>
+  <text x="150" y="194" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-size="12" fill="#607067">Nomor sertifikat akan dicantumkan</text>
+</svg>

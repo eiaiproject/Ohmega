@@ -1,0 +1,27 @@
+---
+import Container from '../common/Container.astro';
+import Icon from '../common/Icon.astro';
+import { site } from '../../data/site';
+import type { IconName } from '../../icons';
+
+const items: { label: string; icon: IconName }[] = [
+  { label: 'Mulai Rp2.900/butir', icon: 'check' },
+  { label: 'Omega-3, DHA, EPA', icon: 'nutrition' },
+  { label: `Gratis antar ${site.deliveryArea}`, icon: 'location' },
+  { label: `Ongkir flat ${site.deliveryFlatRateLabel}`, icon: 'truck' },
+];
+---
+<section aria-label="Ringkasan keunggulan" class="border-y border-border bg-white">
+  <Container class="py-6">
+    <ul class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {items.map((i, idx) => (
+        <li class="reveal reveal-delay-{idx + 1} flex items-center gap-2.5 min-h-[44px]">
+          <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
+            <Icon name={i.icon} size={18} decorative />
+          </span>
+          <span class="font-bold text-text text-sm sm:text-base leading-tight">{i.label}</span>
+        </li>
+      ))}
+    </ul>
+  </Container>
+</section>

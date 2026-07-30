@@ -1,0 +1,38 @@
+---
+import Icon from './Icon.astro';
+import type { IconName } from '../../icons';
+
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'whatsapp';
+  size?: 'md' | 'lg';
+  iconLeft?: IconName;
+  iconRight?: IconName;
+  external?: boolean;
+  class?: string;
+  ariaLabel?: string;
+  'data-track'?: string;
+  'data-source'?: string;
+  'data-package'?: string;
+}
+const {
+  href, variant = 'primary', size = 'md', iconLeft, iconRight, external,
+  class: cls = '', ariaLabel,
+  'data-track': dt, 'data-source': ds, 'data-package': dp,
+} = Astro.props;
+
+const btnMap: Record<string, string> = {
+  primary: 'btn-primary', secondary: 'btn-secondary', whatsapp: 'btn-whatsapp',
+};
+const btnCls = `${btnMap[variant]} ${size === 'lg' ? 'h-[56px] px-7 text-base' : 'h-[52px] px-6 text-base'}`;
+
+const Tag = href ? 'a' : 'button';
+const linkProps = href
+  ? { href, 'aria-label': ariaLabel, rel: external ? 'noopener noreferrer' : undefined, target: external ? '_blank' : undefined }
+  : { type: 'button' as const, 'aria-label': ariaLabel };
+---
+<Tag class:list={[btnCls, cls]} {...linkProps} data-track={dt} data-source={ds} data-package={dp} data-cal-link="false">
+  {iconLeft && <Icon name={iconLeft} size={20} decorative />}
+  <slot />
+  {iconRight && <Icon name={iconRight} size={20} decorative />}
+</Tag>

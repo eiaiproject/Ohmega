@@ -1,0 +1,102 @@
+---
+import '../assets/styles/global.css';
+import { seoDefaults } from '../utils/seo';
+import { site } from '../data/site';
+import { products } from '../data/products';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title = seoDefaults.title,
+  description = seoDefaults.description,
+  canonical,
+} = Astro.props;
+
+const url = canonical ? new URL(canonical, site.siteUrl).toString() : new URL(Astro.url.pathname, site.siteUrl).toString();
+
+const availableProducts = products.filter(p => p.status === 'available');
+---
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#173F2C" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <link rel="icon" href={site.favicon} type="image/svg+xml" />
+    <link rel="preload" as="image" href="/images/hero.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={seoDefaults.locale} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={url} />
+    <meta property="og:image" content={seoDefaults.image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={seoDefaults.image} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: site.brandName,
+      url: site.siteUrl,
+      logo: `${site.siteUrl}/logo/ohmega-logo.svg`,
+      description: seoDefaults.description,
+      areaServed: site.serviceArea,
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Telur Omega",
+        itemListElement: availableProducts.map(p => ({
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Product",
+            name: p.name,
+            description: p.description,
+            offers: {
+              "@type": "Offer",
+              price: p.price,
+              priceCurrency: "IDR",
+              availability: "https://schema.org/InStock",
+            },
+          },
+        })),
+      },
+      sameAs: [site.instagramUrl],
+    })} />
+    <!-- Cloudflare Web Analytics: uncomment and set token when available.
+    <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{"token":"<TOKEN>"}"></script>
+    -->
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Lewati ke konten utama</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script>
+      document.addEventListener('click', (e) => {
+        const el = (e.target as HTMLElement)?.closest('[data-track]');
+        if (!el) return;
+        const event = el.getAttribute('data-track')!;
+        const detail: Record<string, string> = { source: el.getAttribute('data-source') || '' };
+        const pkg = el.getAttribute('data-package');
+        if (pkg) detail.package = pkg;
+        window.dispatchEvent(new CustomEvent('ohmega:track', { detail: { event, ...detail, ts: Date.now() } }));
+      });
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>

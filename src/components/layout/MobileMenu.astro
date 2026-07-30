@@ -1,0 +1,30 @@
+---
+import { navigation } from '../../data/navigation';
+import Container from '../common/Container.astro';
+import Icon from '../common/Icon.astro';
+import WhatsAppButton from '../common/WhatsAppButton.astro';
+---
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-30 bg-cream/100 pt-[68px] flex-col"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Menu navigasi"
+>
+  <Container class="flex items-center justify-between pt-4">
+    <span class="text-sm font-bold text-text-muted">Menu</span>
+    <button type="button" data-menu-close class="inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-full text-primary" aria-label="Tutup menu">
+      <Icon name="close" size={24} decorative />
+    </button>
+  </Container>
+  <nav aria-label="Navigasi utama" class="flex-1">
+    <Container class="py-6 flex flex-col gap-2">
+      {navigation.map(n => (
+        <a href={n.href} class="block py-4 text-xl font-bold text-text border-b border-border min-h-[44px]">{n.label}</a>
+      ))}
+      <div class="pt-6">
+        <WhatsAppButton source="header" size="lg" class="w-full" />
+      </div>
+    </Container>
+  </nav>
+</div>

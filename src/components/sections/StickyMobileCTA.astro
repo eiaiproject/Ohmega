@@ -1,0 +1,35 @@
+---
+import WhatsAppButton from '../common/WhatsAppButton.astro';
+---
+<div
+  id="sticky-wa"
+  class="lg:hidden fixed inset-x-4 z-40 pointer-events-none sticky-cta-bottom"
+  aria-hidden="true"
+>
+  <div class="pointer-events-auto" data-sticky-content hidden>
+    <WhatsAppButton source="sticky_mobile" size="lg" class="w-full shadow-soft" />
+  </div>
+</div>
+
+<script>
+  const wrap = document.getElementById('sticky-wa');
+  const content = wrap?.querySelector('[data-sticky-content]');
+  const hero = document.getElementById('beranda');
+  const finalCta = document.getElementById('final-cta');
+  const footer = document.querySelector('footer');
+  if (content && hero && finalCta && footer) {
+    let last = false;
+    const io = new IntersectionObserver((entries) => {
+      const heroVisible = entries.find(e => e.target === hero)?.isIntersecting;
+      const finalVisible = entries.find(e => e.target === finalCta)?.isIntersecting;
+      const footerVisible = entries.find(e => e.target === footer)?.isIntersecting;
+      const shouldShow = !heroVisible && !finalVisible && !footerVisible;
+      if (shouldShow !== last) {
+        content.hidden = !shouldShow;
+        wrap?.setAttribute('aria-hidden', String(!shouldShow));
+        last = shouldShow;
+      }
+    }, { threshold: 0.1 });
+    [hero, finalCta, footer].forEach(el => io.observe(el));
+  }
+</script>

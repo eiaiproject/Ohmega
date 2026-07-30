@@ -1,0 +1,27 @@
+---
+import { getIcon, type IconName } from '../../icons';
+
+interface Props {
+  name: IconName;
+  size?: number;
+  decorative?: boolean;
+  label?: string;
+  class?: string;
+}
+
+const { name, size = 20, decorative = false, label, class: className = '' } = Astro.props;
+const src = getIcon(name);
+const a11y = decorative ? 'true' : undefined;
+const role = decorative ? undefined : 'img';
+---
+<img
+  src={src}
+  alt=""
+  aria-hidden={a11y}
+  role={role}
+  aria-label={decorative ? undefined : label}
+  width={size}
+  height={size}
+  class:list={['inline-block align-[-0.125em]', className]}
+
+/>

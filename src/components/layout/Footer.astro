@@ -1,0 +1,61 @@
+---
+import { site } from '../../data/site';
+import { navigation } from '../../data/navigation';
+import Container from '../common/Container.astro';
+import Icon from '../common/Icon.astro';
+---
+<footer id="tentang" class="bg-[#FDF5E6] text-text mt-24">
+  <Container class="py-16 grid gap-12 lg:grid-cols-4">
+    <div>
+      <img src="/logo/ohmega-logo.svg" alt={site.brandName} width="140" height="32" class="h-8 w-auto" />
+      <p class="mt-4 text-primary font-bold">{site.tagline}</p>
+      <p class="mt-3 text-sm text-text-muted leading-relaxed">
+        Telur omega untuk keluarga di {site.serviceArea}, diantar langsung ke rumah.
+      </p>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-extrabold uppercase tracking-wider text-primary-dark">Kontak</h3>
+      <ul class="mt-4 space-y-3 text-sm">
+        <li class="flex items-center gap-2">
+          <Icon name="message" size={18} decorative />
+          <a href={`https://wa.me/${site.whatsappInternational}`} target="_blank" rel="noopener noreferrer"
+             class="hover:underline font-semibold" data-track="whatsapp_click" data-source="footer" data-package="general">
+            {site.whatsappDisplayFormatted}
+          </a>
+        </li>
+        <li class="flex items-center gap-2">
+          <Icon name="instagram" size={18} decorative />
+          <a href={site.instagramUrl} target="_blank" rel="noopener noreferrer" class="hover:underline" data-track="instagram_click">
+            @{site.instagramHandle}
+          </a>
+        </li>
+        <li class="flex items-center gap-2">
+          <Icon name="location" size={18} decorative />
+          <span>Berbasis di {site.deliveryArea}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-extrabold uppercase tracking-wider text-primary-dark">Navigasi</h3>
+      <ul class="mt-4 space-y-3 text-sm">
+        {navigation.map(n => (
+          <li><a href={n.href} class="hover:underline" data-track="navigation_click">{n.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="text-sm font-extrabold uppercase tracking-wider text-primary-dark">Produsen &amp; Distributor</h3>
+      <p class="mt-4 text-sm text-text-muted">Diproduksi oleh<br /><strong class="text-text">{site.producerName}</strong><br />{site.producerCity}</p>
+      <p class="mt-3 text-sm text-text-muted">Didistribusikan oleh<br /><strong class="text-text">OHMEGA</strong><br />{site.distributorCity}</p>
+    </div>
+  </Container>
+  <div class="border-t border-border">
+    <Container class="py-6 text-xs text-text-muted flex flex-col sm:flex-row gap-2 sm:items-center sm:justify-between">
+      <p>&copy; {site.currentYear} OHMEGA. Seluruh hak dilindungi.</p>
+      <p>{site.tagline}</p>
+    </Container>
+  </div>
+</footer>

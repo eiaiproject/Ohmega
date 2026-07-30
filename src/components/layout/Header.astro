@@ -1,0 +1,74 @@
+---
+import { site } from '../../data/site';
+import { navigation } from '../../data/navigation';
+import Container from '../common/Container.astro';
+import Icon from '../common/Icon.astro';
+import WhatsAppButton from '../common/WhatsAppButton.astro';
+import MobileMenu from './MobileMenu.astro';
+---
+<header id="beranda" data-header class="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-transparent h-[68px] lg:h-[76px]">
+  <Container class="flex items-center justify-between h-full">
+    <a href="#beranda" class="flex items-center gap-2 min-h-[44px]" aria-label={`${site.brandName} beranda`}>
+      <img src="/logo/ohmega-logo.svg" alt={site.brandName} width="120" height="28" class="h-7 w-auto" />
+    </a>
+
+    <nav aria-label="Navigasi utama" class="hidden lg:flex items-center gap-6">
+      {navigation.map(n => (
+        <a href={n.href} class="text-text hover:text-primary font-semibold min-h-[44px] inline-flex items-center text-sm">{n.label}</a>
+      ))}
+      <WhatsAppButton source="header" size="md" />
+    </nav>
+
+    <button
+      type="button"
+      class="lg:hidden inline-flex items-center justify-center min-w-[44px] min-h-[44px] rounded-full text-primary"
+      aria-controls="mobile-menu"
+      aria-expanded="false"
+      aria-label="Buka menu"
+      data-menu-toggle
+    >
+      <Icon name="menu" size={24} decorative />
+    </button>
+  </Container>
+</header>
+<MobileMenu />
+
+<script>
+  const header = document.querySelector('[data-header]');
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 8) header.classList.add('shadow-soft', 'border-border');
+      else header.classList.remove('shadow-soft', 'border-border');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  const toggle = document.querySelector('[data-menu-toggle]');
+  const panel = document.getElementById('mobile-menu');
+  const closeBtn = panel?.querySelector('[data-menu-close]');
+  const links = panel?.querySelectorAll('a[href^="#"]');
+
+  function setOpen(open) {
+    if (!toggle || !panel) return;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Tutup menu' : 'Buka menu');
+    panel.classList.toggle('hidden', !open);
+    panel.classList.toggle('flex', open);
+    if (open) {
+      const firstLink = panel.querySelector('a[href^="#"]');
+      firstLink?.focus({ preventScroll: true });
+    } else {
+      toggle.focus({ preventScroll: true });
+    }
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+  });
+  closeBtn?.addEventListener('click', () => setOpen(false));
+  links?.forEach(l => l.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') setOpen(false);
+  });
+</script>

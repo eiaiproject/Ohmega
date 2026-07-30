@@ -1,0 +1,71 @@
+---
+import Button from '../common/Button.astro';
+import Icon from '../common/Icon.astro';
+import type { Product } from '../../data/products';
+
+interface Props { product: Product; }
+const { product } = Astro.props;
+
+function fmt(n: number): string {
+  return `Rp${n.toLocaleString('id-ID')}`;
+}
+---
+<article class="rounded-card-lg bg-white border border-border overflow-hidden flex flex-col shadow-card card-hover">
+  <div class="aspect-square bg-soft-green-soft relative">
+    {product.badge && product.status === 'available' && (
+      <span class="badge-pulse absolute top-4 right-4 inline-flex items-center gap-1 rounded-full bg-yolk text-primary-dark px-3 py-1 text-xs font-extrabold z-10">
+        <Icon name="check" size={14} decorative />
+        {product.badge}
+      </span>
+    )}
+    {product.status === 'coming-soon' && (
+      <div class="absolute inset-0 flex items-center justify-center bg-soft-green-soft/60 z-10">
+        <span class="inline-flex items-center rounded-full bg-text-muted/15 text-text-muted px-4 py-2 text-sm font-extrabold">
+          Segera Hadir
+        </span>
+      </div>
+    )}
+    <img
+      src={product.image}
+      alt={product.imageAlt}
+      width="400" height="400"
+      loading="lazy" decoding="async"
+      class:list={['h-full w-full object-contain p-4', product.status === 'coming-soon' && 'opacity-50']}
+    />
+  </div>
+  <div class="p-6 flex flex-col flex-1 gap-3">
+    <div>
+      <h3 class="text-xl font-extrabold text-text">{product.name}</h3>
+      <p class="mt-1 text-sm text-text-muted leading-relaxed">{product.description}</p>
+    </div>
+
+    {product.status === 'available' && product.price ? (
+      <div>
+        <p class="text-2xl font-extrabold text-text">{fmt(product.price)}</p>
+        <p class="text-sm text-text-muted">
+          {fmt(product.pricePerUnit ?? 0)} per butir
+          {product.savings ? <span class="text-primary font-bold ml-2">Hemat {fmt(product.savings)}</span> : ''}
+        </p>
+      </div>
+    ) : (
+      <p class="text-sm text-text-muted">Harga akan diumumkan setelah tersedia.</p>
+    )}
+
+    <div class="mt-auto pt-2">
+      <Button
+        href={product.whatsappHref}
+        variant={product.status === 'available' ? 'whatsapp' : 'secondary'}
+        size="md"
+        iconLeft="message"
+        external
+        class="w-full"
+        ariaLabel={product.buttonLabel}
+        data-track="whatsapp_click"
+        data-source="product_card"
+        data-package={String(product.quantity) as '4' | '6' | '10' | '30'}
+      >
+        {product.buttonLabel}
+      </Button>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,31 @@
+---
+import Container from '../common/Container.astro';
+import SectionHeading from '../common/SectionHeading.astro';
+import Icon from '../common/Icon.astro';
+import { nutrition, nutritionNote } from '../../data/nutrition';
+---
+<section id="kandungan" class="py-16 lg:py-24">
+  <Container>
+    <SectionHeading
+      title="Kandungan Baik dalam Setiap Pilihan"
+      description="Kenali kandungan utama yang terdapat dalam produk OHMEGA."
+    />
+    <div class="mt-4 inline-block rounded-full bg-soft-green px-4 py-1.5 text-xs font-bold text-primary">
+      Kandungan per 100 gram
+    </div>
+    <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {nutrition.map(n => (
+        <li class:list={['reveal rounded-card-lg bg-white border border-border p-6 lg:p-8 shadow-card card-hover', n.featured && 'ring-2 ring-primary/10 bg-soft-green-soft']}>
+          <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-yolk-soft text-primary">
+            <Icon name={n.icon} size={24} decorative />
+          </span>
+          <p class="mt-6 text-5xl lg:text-6xl font-extrabold text-text leading-none">
+            {n.value}<span class="text-2xl lg:text-3xl font-bold text-text-muted ml-1">{n.unit}</span>
+          </p>
+          <p class="mt-3 text-base font-bold text-text">{n.name}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="mt-8 text-sm text-text-muted max-w-2xl">{nutritionNote}</p>
+  </Container>
+</section>

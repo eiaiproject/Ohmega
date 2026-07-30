@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" role="img" aria-label="Placeholder area produksi OHMEGA">
+  <rect width="600" height="400" rx="24" fill="#DDEDE3"/>
+  <rect x="40" y="40" width="520" height="320" rx="16" fill="#FFFFFF" stroke="#245D40" stroke-width="2" stroke-dasharray="6 6"/>
+  <text x="300" y="200" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-weight="800" font-size="22" fill="#173F2C">Foto Produsen</text>
+  <text x="300" y="232" text-anchor="middle" font-family="Nunito Sans, sans-serif" font-size="14" fill="#607067">Placeholder dokumentasi PT Mahkota Unggas Sejahtera</text>
+</svg>

@@ -1,0 +1,82 @@
+---
+import Container from '../common/Container.astro';
+import SectionHeading from '../common/SectionHeading.astro';
+import Icon from '../common/Icon.astro';
+import Button from '../common/Button.astro';
+import { site } from '../../data/site';
+import { buildWhatsAppLink } from '../../utils/whatsapp';
+
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
+  + site.deliveryAreaLng + '!3d' + site.deliveryAreaLat
+  + '!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMjcnMzAuNyJTIDExMsKwNDEnMTkuOCJF!5e0!3m2!1sid!2sid!4v1';
+---
+<section id="pengiriman" class="py-16 lg:py-24 bg-white border-y border-border">
+  <Container>
+    <SectionHeading title="Layanan Pengiriman" description="Nikmati layanan antar langsung ke rumah Anda." />
+    <div class="mt-12 grid gap-8 lg:grid-cols-2">
+      <div class="space-y-6">
+        <article class="reveal rounded-card-lg border border-border p-6 lg:p-8 bg-white shadow-card flex gap-5 card-hover">
+          <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
+            <Icon name="location" size={28} decorative />
+          </span>
+          <div>
+            <h3 class="text-lg font-extrabold text-text">Gratis Antar</h3>
+            <p class="mt-2 text-sm text-text-muted leading-relaxed">
+              Gratis antar untuk pemesanan di <strong class="text-text">{site.deliveryFreeArea}</strong>, Sidoarjo.
+            </p>
+          </div>
+        </article>
+        <article class="reveal reveal-delay-1 rounded-card-lg border border-border p-6 lg:p-8 bg-white shadow-card flex gap-5 card-hover">
+          <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
+            <Icon name="truck" size={28} decorative />
+          </span>
+          <div>
+            <h3 class="text-lg font-extrabold text-text">Ongkir Flat {site.deliveryFlatRateLabel}</h3>
+            <p class="mt-2 text-sm text-text-muted leading-relaxed">
+              Biaya kirim {site.deliveryFlatRateLabel} untuk area {site.serviceArea} lainnya di luar {site.deliveryFreeArea}.
+            </p>
+          </div>
+        </article>
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          <Button
+            href={buildWhatsAppLink('Halo OHMEGA, saya ingin menanyakan pengiriman telur omega ke wilayah ' + site.serviceArea + '. Mohon informasinya.')}
+            variant="whatsapp"
+            size="md"
+            iconLeft="message"
+            external
+            ariaLabel="Tanya pengiriman via WhatsApp"
+            data-track="whatsapp_click"
+            data-source="delivery"
+            data-package="general"
+          >
+            Tanya Pengiriman
+          </Button>
+          <Button
+            href={'https://www.google.com/maps/dir/?api=1&destination=' + site.deliveryAreaLat + ',' + site.deliveryAreaLng}
+            variant="secondary"
+            size="md"
+            iconRight="external_link"
+            external
+            ariaLabel="Buka petunjuk arah ke Perumahan Amartha Safira di Google Maps"
+          >
+            Buka Petunjuk Arah
+          </Button>
+        </div>
+        <p class="text-sm text-text-muted">
+          Pemesanan, stok, dan jadwal pengiriman dikonfirmasi melalui WhatsApp.
+        </p>
+      </div>
+      <div class="rounded-card-lg overflow-hidden shadow-card border border-border h-[320px] lg:h-full min-h-[280px] bg-soft-green relative">
+        <iframe
+          title="Peta area layanan OHMEGA di Sidoarjo"
+          src={mapSrc}
+          width="100%" height="100%"
+          style="border:0;"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          class="absolute inset-0 w-full h-full"
+        ></iframe>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,39 @@
+---
+import Button from './Button.astro';
+import { buildWhatsAppLink, messages } from '../../utils/whatsapp';
+
+interface Props {
+  source: 'hero' | 'header' | 'product_card' | 'final_cta' | 'sticky_mobile';
+  package?: 'general' | '4' | '6' | '10' | '30';
+  label?: string;
+  variant?: 'primary' | 'whatsapp';
+  size?: 'md' | 'lg';
+  iconLeft?: 'message' | 'phone';
+  class?: string;
+}
+
+const {
+  source, package: pkg = 'general', label, variant = 'whatsapp', size = 'lg', iconLeft = 'message', class: cls = '',
+} = Astro.props;
+
+const map: Record<string, string> = {
+  general: messages.general, '4': messages.pack4, '6': messages.pack6,
+  '10': messages.pack10, '30': messages.pack30,
+};
+const text = label ?? 'Pesan melalui WhatsApp';
+const href = buildWhatsAppLink(map[pkg]);
+---
+<Button
+  href={href}
+  variant={variant}
+  size={size}
+  iconLeft={iconLeft}
+  external
+  class={cls}
+  ariaLabel={text}
+  data-track="whatsapp_click"
+  data-source={source}
+  data-package={pkg}
+>
+  {text}
+</Button>

@@ -1,0 +1,21 @@
+---
+import Container from '../common/Container.astro';
+import WhatsAppButton from '../common/WhatsAppButton.astro';
+import { site } from '../../data/site';
+---
+<section id="final-cta" class="py-16 lg:py-24">
+  <Container>
+    <div class="reveal rounded-card-lg bg-primary text-white p-8 lg:p-16 text-center">
+      <h2 class="text-3xl lg:text-[2.5rem] font-extrabold leading-tight text-balance">Siap Pesan OHMEGA?</h2>
+      <p class="mt-4 text-base lg:text-lg text-soft-green max-w-2xl mx-auto">
+        Pilih kemasan yang sesuai dan dapatkan layanan antar langsung ke rumah.
+      </p>
+      <div class="mt-8 flex justify-center">
+        <WhatsAppButton source="final_cta" size="lg" label="Pesan melalui WhatsApp" />
+      </div>
+      <p class="mt-4 text-sm text-soft-green/90">
+        Gratis antar di {site.deliveryFreeArea}. Ongkir flat {site.deliveryFlatRateLabel} untuk area {site.serviceArea} lainnya.
+      </p>
+    </div>
+  </Container>
+</section>

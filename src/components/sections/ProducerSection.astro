@@ -1,0 +1,40 @@
+---
+import Container from '../common/Container.astro';
+import Icon from '../common/Icon.astro';
+import { site } from '../../data/site';
+---
+<section id="tentang" class="py-16 lg:py-24">
+  <Container>
+    <div class="max-w-2xl">
+      <h2 class="text-3xl font-extrabold leading-tight text-text sm:text-[2.5rem] text-balance">Dari Produsen Tepercaya</h2>
+      <p class="mt-4 text-base leading-relaxed text-text-muted sm:text-lg">
+        OHMEGA diproduksi oleh <strong class="text-text">{site.producerName}</strong> di {site.producerCity} dan didistribusikan dari {site.distributorCity}.
+      </p>
+    </div>
+    <div class="mt-10 grid gap-6 lg:grid-cols-2">
+      <article class="reveal rounded-card-lg border border-border bg-white p-6 lg:p-8 shadow-card flex gap-5 card-hover">
+        <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
+          <Icon name="factory" size={28} decorative />
+        </span>
+        <div>
+          <p class="text-sm font-bold text-text-muted">Diproduksi oleh</p>
+          <h3 class="mt-1 text-xl font-extrabold text-text">{site.producerName}</h3>
+          <p class="mt-1 text-text-muted">{site.producerCity}</p>
+        </div>
+      </article>
+      <article class="reveal reveal-delay-1 rounded-card-lg border border-border bg-white p-6 lg:p-8 shadow-card flex gap-5 card-hover">
+        <span class="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
+          <Icon name="store" size={28} decorative />
+        </span>
+        <div>
+          <p class="text-sm font-bold text-text-muted">Didistribusikan oleh</p>
+          <h3 class="mt-1 text-xl font-extrabold text-text">OHMEGA</h3>
+          <p class="mt-1 text-text-muted">{site.distributorCity}</p>
+        </div>
+      </article>
+    </div>
+    <div class="mt-8 aspect-[3/1] w-full overflow-hidden rounded-card-lg bg-soft-green">
+      <img src="/images/producer.svg" alt="Area produksi OHMEGA" width="1200" height="400" loading="lazy" class="h-full w-full object-cover" />
+    </div>
+  </Container>
+</section>

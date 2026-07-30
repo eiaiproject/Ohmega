@@ -1,0 +1,32 @@
+---
+import Container from '../common/Container.astro';
+import ProductCard from './ProductCard.astro';
+import { products } from '../../data/products';
+
+const available = products.filter(p => p.status === 'available');
+const comingSoon = products.filter(p => p.status === 'coming-soon');
+---
+<section id="produk" class="py-16 lg:py-24 bg-white border-y border-border">
+  <Container>
+    <div class="max-w-2xl">
+      <p class="text-sm font-extrabold uppercase tracking-wider text-primary">Produk</p>
+      <h2 class="mt-2 text-3xl font-extrabold leading-tight text-text sm:text-[2.5rem] text-balance">
+        Pilih Kemasan Sesuai Kebutuhan
+      </h2>
+      <p class="mt-4 text-base leading-relaxed text-text-muted sm:text-lg">
+        OHMEGA tersedia dalam pilihan isi 10 dan 30. Pesan sekarang untuk layanan antar ke rumah.
+      </p>
+    </div>
+
+    <h3 class="mt-12 text-lg font-extrabold text-text">Tersedia</h3>
+    <ul class="mt-4 grid gap-6 sm:grid-cols-2">
+      {available.map((p, i) => <li class="reveal reveal-delay-{i + 1}"><ProductCard product={p} /></li>)}
+    </ul>
+
+    <h3 class="mt-16 text-lg font-extrabold text-text-muted">Segera Hadir</h3>
+    <p class="mt-2 text-sm text-text-muted">Kemasan isi 4 dan 6 akan tersedia. Tinggalkan nomor WhatsApp Anda untuk mendapat kabar.</p>
+    <ul class="mt-4 grid gap-6 sm:grid-cols-2">
+      {comingSoon.map((p, i) => <li class="reveal reveal-delay-{i + 1}"><ProductCard product={p} /></li>)}
+    </ul>
+  </Container>
+</section>

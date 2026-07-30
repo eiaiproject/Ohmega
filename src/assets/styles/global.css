@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/fonts/nunito-sans-regular.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/fonts/nunito-sans-semibold.woff2') format('woff2');
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/fonts/nunito-sans-bold.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'Nunito Sans';
+  src: url('/fonts/nunito-sans-extrabold.woff2') format('woff2');
+  font-weight: 800; font-style: normal; font-display: swap;
+}
+
+@theme {
+  --color-primary-dark: #173F2C;
+  --color-primary: #245D40;
+  --color-primary-light: #2F7350;
+  --color-soft-green: #DDEDE3;
+  --color-soft-green-soft: #F1F8F3;
+  --color-yolk: #F5A900;
+  --color-yolk-light: #FFBC24;
+  --color-cream: #FFFDF6;
+  --color-yolk-soft: #FFF0C2;
+  --color-text: #183126;
+  --color-text-muted: #607067;
+  --color-border: #DDE5DF;
+  --color-surface: #FFFFFF;
+  --color-whatsapp: #25D366;
+
+  --font-sans: "Nunito Sans", system-ui, sans-serif;
+
+  --shadow-soft: 0 12px 40px rgba(23, 63, 44, 0.08);
+  --shadow-card: 0 8px 24px rgba(23, 63, 44, 0.06);
+
+  --radius-card: 20px;
+  --radius-card-lg: 28px;
+}
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+body { background: var(--color-cream); color: var(--color-text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+.sticky-cta-bottom {
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+
+.skip-link {
+  position: absolute; left: 0.5rem; top: 0.5rem;
+  transform: translateY(-200%);
+  background: var(--color-primary); color: white;
+  padding: 0.5rem 1rem; border-radius: var(--radius-card);
+  z-index: 50;
+}
+.skip-link:focus { transform: translateY(0); }
+
+.btn-primary {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.5rem; border-radius: 9999px;
+  background: var(--color-primary); color: white;
+  font-weight: 700;
+  min-height: 44px; height: 52px; padding: 0 1.5rem;
+  transition: background-color 150ms ease;
+}
+.btn-primary:hover { background: var(--color-primary-dark); }
+
+.btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.5rem; border-radius: 9999px;
+  background: white; color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  font-weight: 700;
+  min-height: 44px; height: 52px; padding: 0 1.5rem;
+  transition: background-color 150ms ease;
+}
+.btn-secondary:hover { background: var(--color-soft-green); }
+
+.btn-whatsapp {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: 0.5rem; border-radius: 9999px;
+  background: var(--color-whatsapp); color: white;
+  font-weight: 700;
+  min-height: 44px; height: 56px; padding: 0 1.75rem;
+  transition: background-color 150ms ease;
+}
+.btn-whatsapp:hover { background: #1FBA59; /* ponytail: hardcode hover variant, add --color-whatsapp-hover if multiple WA buttons */ }
+
+/* ── Scroll reveal ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ── Card hover ── */
+.card-hover { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.card-hover:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(23, 63, 44, 0.10); }
+
+/* ── Hero entrance ── */
+.hero-content { opacity: 0; transform: translateY(20px); animation: heroFadeIn 0.8s ease-out forwards; }
+.hero-image { opacity: 0; transform: scale(0.95); animation: heroFadeIn 0.8s ease-out 0.2s forwards; }
+@keyframes heroFadeIn {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Badge pulse ── */
+.badge-pulse { animation: badgePop 0.4s ease-out 0.6s both; }
+@keyframes badgePop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.container-page {
+  margin-left: auto; margin-right: auto;
+  width: 100%; max-width: 1280px;
+  padding-left: 1.25rem; padding-right: 1.25rem;
+}
+@media (min-width: 360px) { .container-page { padding-left: 1.5rem; padding-right: 1.5rem; } }
+@media (min-width: 1024px) { .container-page { padding-left: 2rem; padding-right: 2rem; } }
+@media (min-width: 1280px) { .container-page { padding-left: 2.5rem; padding-right: 2.5rem; } }
