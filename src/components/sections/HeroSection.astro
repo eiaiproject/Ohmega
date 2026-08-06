@@ -4,20 +4,21 @@ import Button from '../common/Button.astro';
 import WhatsAppButton from '../common/WhatsAppButton.astro';
 import Icon from '../common/Icon.astro';
 import { site } from '../../data/site';
+import { startingPerUnit } from '../../data/products';
 ---
 <section class="pt-8 pb-12 lg:pt-12 lg:pb-20">
   <Container>
     <div class="grid gap-8 lg:grid-cols-[1.1fr_1fr] lg:gap-12 items-center">
       <div class="hero-content">
-        <p class="text-sm font-extrabold uppercase tracking-wider text-primary">Telur Omega di Sidoarjo</p>
+        <p class="text-sm font-extrabold uppercase tracking-wider text-primary">Telur Omega di {site.serviceArea}</p>
         <h1 class="mt-3 text-[clamp(2rem,5vw+0.5rem,3.75rem)] font-extrabold leading-[1.08] text-text text-balance">
           Telur Omega, Diantar Langsung ke Rumah
         </h1>
         <p class="mt-4 text-base lg:text-lg text-text-muted leading-relaxed max-w-xl">
-          Pilihan telur dengan kandungan Omega-3, DHA, dan EPA untuk sajian keluarga sehari-hari. Tersedia untuk pelanggan di Sidoarjo.
+          Telur dengan kandungan Omega-3, DHA, dan EPA untuk sajian keluarga sehari-hari — diantar langsung ke rumah Anda di {site.serviceArea}.
         </p>
         <p class="mt-5 text-2xl lg:text-3xl font-extrabold text-primary">
-          Mulai Rp2.900 per butir
+          Mulai Rp{startingPerUnit.toLocaleString('id-ID')} per butir
         </p>
         <div class="mt-6 flex flex-col sm:flex-row gap-3">
           <WhatsAppButton source="hero" size="lg" />
@@ -26,15 +27,15 @@ import { site } from '../../data/site';
         <ul class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-text-muted">
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
-            Gratis antar di {site.deliveryArea}
+            Gratis antar di area terpilih
           </li>
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
-            Ongkir Sidoarjo flat {site.deliveryFlatRateLabel}
+            {site.tagline}
           </li>
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
-            Tersedia isi 10 dan 30
+            Tersedia isi 4, 10, dan 30
           </li>
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
