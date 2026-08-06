@@ -34,15 +34,20 @@ const availableProducts = products.filter(p => p.status === 'available');
     <link rel="icon" href={site.favicon} type="image/svg+xml" />
     <link rel="preload" as="image" href="/images/hero.webp" />
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brandName} />
     <meta property="og:locale" content={seoDefaults.locale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={url} />
     <meta property="og:image" content={seoDefaults.image} />
+    <meta property="og:image:width" content={seoDefaults.imageWidth} />
+    <meta property="og:image:height" content={seoDefaults.imageHeight} />
+    <meta property="og:image:alt" content={seoDefaults.imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={seoDefaults.image} />
+    <meta name="twitter:image:alt" content={seoDefaults.imageAlt} />
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
@@ -51,6 +56,18 @@ const availableProducts = products.filter(p => p.status === 'available');
       logo: `${site.siteUrl}/logo/ohmega-logo.svg`,
       description: seoDefaults.description,
       areaServed: site.serviceArea,
+      telephone: `+${site.whatsappInternational}`,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: site.serviceArea,
+        addressRegion: site.addressRegion,
+        addressCountry: 'ID',
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: site.deliveryAreaLat,
+        longitude: site.deliveryAreaLng,
+      },
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Telur Omega",

@@ -3,7 +3,7 @@
 Landing page penjualan untuk **OHMEGA** — telur omega lokal Sidoarjo dengan layanan antar ke rumah.  
 Dibangun dengan [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com), static site, siap deploy ke [Cloudflare Pages](https://pages.cloudflare.com).
 
-**[ohmega.id](https://ohmega.id)** — domain produksi.
+**[ohmega.web.id](https://ohmega.web.id)** — domain produksi.
 
 ---
 
@@ -69,10 +69,11 @@ src/
   utils/                       — whatsapp.ts, seo.ts
 public/
   logo/                        — ohmega-logo.svg (wordmark + simbol telur)
-  images/                      — hero.webp, product-{10,30,4,6}.svg, producer.svg
-  certifications/              — nkv.svg, sig.svg, halal.svg
+  images/                      — hero.webp, product-{4,10,30}.webp (+ .png sumber), producer.webp
+  certifications/              — nkv.svg, sig.png, halal.svg
+  labels/                      — label-isi-{4,10,30}.{svg,png} (label brand cetak)
   fonts/                       — nunito-sans-{regular,semibold,bold,extrabold}.woff2
-  robots.txt, _headers, social-preview.svg, favicon.svg
+  robots.txt, _headers, social-preview.{svg,png}, favicon.svg
 ```
 
 ---
@@ -93,7 +94,6 @@ serviceArea             // Sidoarjo
 producerName            // PT Mahkota Unggas Sejahtera
 producerCity            // Mojokerto
 deliveryArea            // Perumahan Amartha Safira
-deliveryFlatRate        // 5000
 ```
 
 ### Produk & harga — `src/data/products.ts`
@@ -101,9 +101,13 @@ deliveryFlatRate        // 5000
 Setiap produk memiliki:
 - `id`, `name`, `quantity`, `image`, `imageAlt`, `description`
 - `status: 'available' | 'coming-soon'`
-- `price`, `pricePerUnit`, `savings` (untuk produk tersedia)
-- `whatsappHref` (URL + pesan ter-encode)
+- `price`, `pricePerUnit`, `savings` — **otomatis dihitung dari `src/data/prices.ts`** (jangan diedit manual)
+- `whatsappHref` (URL + pesan ter-encode, harga otomatis mengikuti `prices.ts`)
 - `buttonLabel`
+
+### Harga — `src/data/prices.ts`
+
+**Satu-satunya file harga.** Ubah angka `pack10` / `pack30` untuk menyesuaikan harga (lihat bagian [Mengubah Harga](#mengubah-harga)).
 
 ### Kandungan gizi — `src/data/nutrition.ts`
 
@@ -127,46 +131,70 @@ Proporsi asli: 864×150. Scaling otomatis via `h-* w-auto`.
 | Aset | File | Ukuran rekomendasi |
 |------|------|-------------------|
 | Hero | `public/images/hero.webp` | 800×1000 px, 4:5 |
-| Isi 10 | `public/images/product-10.svg` | 400×400 px |
-| Isi 30 | `public/images/product-30.svg` | 400×400 px |
-| Isi 4 | `public/images/product-4.svg` | 400×400 px |
-| Isi 6 | `public/images/product-6.svg` | 400×400 px |
-| Produksi | `public/images/producer.svg` | 1200×400 px, 3:1 |
+| Isi 10 | `public/images/product-10.webp` | 800×800 px |
+| Isi 30 | `public/images/product-30.webp` | 800×800 px |
+| Isi 4 | `public/images/product-4.webp` | 800×800 px |
+| Produksi | `public/images/producer.webp` | 1600×1066 px, 3:2 (tampil utuh) |
 
-> **Catatan:** Foto produk asli belum tersedia. Gunakan SVG placeholder atau file `.webp`/`.jpg`.  
-> Setelah diganti, update `imageAlt` di `src/data/products.ts`.
+> **Catatan:** File `.png` di `public/images/` adalah sumber resolusi penuh (1254×1254), dan sumber foto produksi adalah `public/nick-fewings-qlLCBkTSYAI-unsplash.jpg` (3032×2021). Setelah mengganti sumber, buat ulang WebP dengan `node scripts/generate-product-images.mjs`, lalu update `imageAlt` di `src/data/products.ts`.
 
 ### Logo sertifikasi
 
 | Sertifikat | File |
 |------------|------|
 | NKV | `public/certifications/nkv.svg` |
-| SIG | `public/certifications/sig.svg` |
+| SIG | `public/certifications/sig.png` |
 | Halal | `public/certifications/halal.svg` |
 
 > **Catatan:** Logo resmi dan nomor sertifikat belum tersedia.  
 > Saat tersedia, ganti file SVG dan update teks di `src/components/sections/CertificationsSection.astro`.
+
+### Label brand (cetak)
+
+Label untuk kemasan telur, tersedia di `public/labels/`:
+
+| File | Ukuran | Penggunaan |
+|------|--------|-----------|
+| `label-isi-4.svg` / `.png` | 5×5 cm (591×591 px @300 DPI) | Kemasan isi 4 (rasio 1:1) |
+| `label-isi-10.svg` / `.png` | 15×5 cm (1772×591 px @300 DPI) | Kemasan isi 10 |
+| `label-isi-30.svg` / `.png` | 15×5 cm (1772×591 px @300 DPI) | Kemasan isi 30 |
+
+Layout mengikuti referensi desain label (file `public/xml version=...png`): logo besar di atas, stempel brand bulat di kanan atas, nama produk + pill ukuran isi + tagline, tiga badge berbentuk telur (NKV · SIG · HALAL) di bawah, dan strip kontak. Warna seluruhnya dari palet brand (referensi aslinya memakai ungu/pink yang diganti ke warna OHMEGA).  
+Konten: logo OHMEGA (warna asli), nama produk + ukuran isi, tagline, badge NKV (BUP 3516070-053), SIG (17.1.F.FP), HALAL, nomor WhatsApp, dan `ohmega.web.id`.  
+**SVG** adalah master editabel (buka di Illustrator/Inkscape/Canva). **PNG** siap cetak 300 DPI dengan metadata ukuran fisik.  
+Setelah mengedit SVG, buat ulang PNG dengan `node scripts/generate-label.mjs`.  
+> Catatan: teks dirender dengan font fallback sistem (Helvetica/Arial) karena Nunito Sans tidak selalu ter-install; wordmark logo tetap vektor asli.  
+> Label full-bleed tanpa area bleed — saat mencetak, pastikan percetakan tidak memotong tepi (atau tambahkan margin sendiri 2–3 mm di sekitar desain).
 
 ### Metadata & SEO
 
 | Item | Lokasi |
 |------|--------|
 | Site title / description | `src/utils/seo.ts` |
-| Social preview image | `public/social-preview.svg` (ganti dengan `.jpg` 1200×630 jika perlu) |
+| Social preview image | `public/social-preview.png` (1200×630, dari SVG via script — lihat di bawah) |
 | Favicon | `public/favicon.svg` |
 | robots.txt | `public/robots.txt` |
 | Security headers | `public/_headers` |
 
+**Social preview:** edit `public/social-preview.svg`, lalu jalankan `node scripts/generate-social-preview.mjs` untuk membuat ulang `social-preview.png`. PNG wajib dipakai untuk og:image (WhatsApp/Facebook/Twitter tidak mendukung SVG). Setelah mengganti, naikkan `ogImageVersion` di `src/data/site.ts` agar platform tidak memakai cache lama.  
+> Catatan: teks di PNG (headline, tagline, dll.) dirender dengan font fallback sistem (Helvetica/Arial) karena Nunito Sans tidak selalu ter-install; wordmark logo tetap vektor Nunito Sans asli. Jika ingin hasil persis brand font, install Nunito Sans di mesin sebelum menjalankan script.  
+> Urutan: jalankan `node scripts/generate-product-images.mjs` dulu (membuat foto WebP), lalu `node scripts/generate-social-preview.mjs`.
+
 ---
 
-## Mengubah Harga & Ongkir
+## Mengubah Harga
 
-| Data | File | Field |
-|------|------|-------|
-| Harga produk | `src/data/products.ts` | `price`, `pricePerUnit`, `savings` |
-| Ongkir flat | `src/data/site.ts` | `deliveryFlatRate` (number), `deliveryFlatRateLabel` (string) |
+Cukup edit **satu file**: `src/data/prices.ts` — ubah angka `pack10` dan/atau `pack30`, lalu commit & deploy.
 
-Format mata uang: `Rp` + locale `id-ID` (contoh: Rp29.000, Rp81.000, Rp5.000).
+Otomatis ikut menyesuaikan:
+- Harga per butir di kartu produk
+- Label "Hemat …" (isi 30 vs isi 10) — hanya tampil jika memang lebih hemat
+- Pesan WhatsApp saat pemesanan
+- Tulisan "Mulai Rp… per butir" di hero & trust bar
+
+Format mata uang: `Rp` + locale `id-ID` (contoh: Rp29.000, Rp81.000).
+
+> Pengiriman di luar Perumahan Amartha Safira dikonfirmasi per pesanan melalui WhatsApp.
 
 ---
 
@@ -202,7 +230,7 @@ Pesan WhatsApp untuk setiap paket diatur di `src/data/products.ts` (fungsi `waLi
 5. **Build command**: `npm run build`
 6. **Output directory**: `dist`
 7. Deploy
-8. (Opsional) tambahkan custom domain `ohmega.id`
+8. (Opsional) tambahkan custom domain `ohmega.web.id`
 
 ### File penting untuk deployment
 
@@ -257,19 +285,10 @@ Lihat `src/icons/README.md` untuk mapping nama ikon.
 | Item | Status | Lokasi Penggantian |
 |------|--------|-------------------|
 | Logo NKV | Placeholder | `public/certifications/nkv.svg` |
-| Logo SIG | Placeholder | `public/certifications/sig.svg` |
-| Logo Halal | Placeholder | `public/certifications/halal.svg` |
 | Foto hero | Placeholder (SVG) | `public/images/hero.webp` |
-| Foto produk isi 10 | Placeholder (SVG) | `public/images/product-10.svg` |
-| Foto produk isi 30 | Placeholder (SVG) | `public/images/product-30.svg` |
-| Foto produk isi 4 | Placeholder (SVG) | `public/images/product-4.svg` |
-| Foto produk isi 6 | Placeholder (SVG) | `public/images/product-6.svg` |
-| Foto area produksi | Placeholder (SVG) | `public/images/producer.svg` |
-| Social preview | `public/social-preview.svg` (placeholder) | Ganti dengan `.jpg` 1200×630 |
-| Nomor sertifikat NKV | Belum tersedia | `src/components/sections/CertificationsSection.astro` |
-| Nomor sertifikat SIG | Belum tersedia | `src/components/sections/CertificationsSection.astro` |
-| Nomor sertifikat Halal | Belum tersedia | `src/components/sections/CertificationsSection.astro` |
-| Dokumen pengujian gizi | Belum tersedia | `src/data/nutrition.ts` (`nutritionNote`) |
+
+| Foto area produksi | **Sudah diganti** (unsplash, JPG→WebP) | `public/images/producer.webp` |
+| Nomor sertifikat NKV | Tersedia (BUP 3516070-053) | `src/components/sections/CertificationsSection.astro` |
 | Cloudflare Analytics token | Belum diisi | `src/layouts/BaseLayout.astro` (komentar) |
-| Domain produksi | `https://ohmega.id` | `src/data/site.ts` (`siteUrl`) |
+| Domain produksi | `https://ohmega.web.id` | `src/data/site.ts` (`siteUrl`) |
 | Instagram | @ohmega_id (belum diverifikasi) | `src/data/site.ts` |

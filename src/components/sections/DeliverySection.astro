@@ -31,9 +31,9 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
             <Icon name="truck" size={28} decorative />
           </span>
           <div>
-            <h3 class="text-lg font-extrabold text-text">Ongkir Flat {site.deliveryFlatRateLabel}</h3>
+            <h3 class="text-lg font-extrabold text-text">Area {site.serviceArea} Lainnya</h3>
             <p class="mt-2 text-sm text-text-muted leading-relaxed">
-              Biaya kirim {site.deliveryFlatRateLabel} untuk area {site.serviceArea} lainnya di luar {site.deliveryFreeArea}.
+              Untuk pengiriman di luar <strong class="text-text">{site.deliveryFreeArea}</strong>, biaya dan jadwal dikonfirmasi melalui WhatsApp.
             </p>
           </div>
         </article>
@@ -44,7 +44,7 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
             size="md"
             iconLeft="message"
             external
-            ariaLabel="Tanya pengiriman via WhatsApp"
+            ariaLabel="Tanya pengiriman melalui WhatsApp"
             data-track="whatsapp_click"
             data-source="delivery"
             data-package="general"

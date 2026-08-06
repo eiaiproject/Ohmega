@@ -16,4 +16,4 @@ export const nutrition: NutritionItem[] = [
 ];
 
 export const nutritionNote =
-  'Informasi kandungan ditampilkan per 100 gram berdasarkan data pengujian produk. Dokumen pendukung akan ditambahkan setelah tersedia.';
+  'Informasi kandungan ditampilkan per 100 gram berdasarkan hasil pengujian laboratorium SIG (Nomor 17.1.F.FP).';
