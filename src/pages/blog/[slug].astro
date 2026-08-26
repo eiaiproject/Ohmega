@@ -1,0 +1,93 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import ArticleMeta from '../../components/blog/ArticleMeta.astro';
+import { getAllArticles } from '../../lib/content';
+import { render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const articles = await getAllArticles();
+  return articles.map((article) => ({
+    params: { slug: article.data.slug || article.id },
+    props: { article },
+  }));
+}) satisfies GetStaticPaths;
+
+const { article } = Astro.props;
+const { title, description, hero, heroAlt, seoTitle, seoDescription, date, tags, slug } = article.data;
+const articleSlug = slug || article.id;
+const { Content } = await render(article);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description: description,
+  image: hero ? `https://ohmega.web.id${hero}` : undefined,
+  datePublished: date.toISOString(),
+  author: { "@type": "Organization", name: "OHMEGA" },
+  publisher: {
+    "@type": "Organization",
+    name: "OHMEGA",
+    logo: { "@type": "ImageObject", url: "https://ohmega.web.id/logo/ohmega-logo.svg" },
+  },
+  mainEntityOfPage: `https://ohmega.web.id/blog/${articleSlug}`,
+};
+---
+
+<BlogLayout
+  title={seoTitle || `${title} | Blog OHMEGA`}
+  description={seoDescription || description}
+  heroImage={hero}
+  publishDate={date}
+  tags={tags}
+  ogAlt={heroAlt}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
+  <a href="/blog" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all mb-6">
+    ← Kembali ke daftar artikel
+  </a>
+
+  <h1 class="text-[clamp(1.75rem,3.5vw+0.5rem,2.5rem)] font-extrabold leading-tight text-text text-balance">
+    {title}
+  </h1>
+  <p class="mt-3 text-lg text-text-muted leading-relaxed">{description}</p>
+  <div class="mt-5">
+    <ArticleMeta article={article} />
+  </div>
+
+  {
+    hero && (
+      <figure class="mt-8 -mx-4 sm:mx-0 sm:rounded-card overflow-hidden">
+        <img
+          src={hero}
+          alt={heroAlt || title}
+          width="1200"
+          height="630"
+          loading="eager"
+          decoding="async"
+          class="w-full h-auto"
+        />
+      </figure>
+    )
+  }
+
+  <div class="prose prose-ohmega mt-10">
+    <Content />
+  </div>
+
+  <hr class="my-12 border-border" />
+
+  <footer class="rounded-card bg-soft-green-soft p-6 text-center">
+    <p class="text-text font-bold">Tertarik mencoba telur OHMEGA?</p>
+    <p class="mt-1 text-sm text-text-muted">Antar ke rumah di Sidoarjo — stok & waktu kirim dikonfirmasi via WhatsApp.</p>
+    <a
+      href="https://wa.me/6285111331269?text=Halo%20OHMEGA%2C%20saya%20ingin%20memesan%20telur%20omega."
+      class="mt-4 inline-flex items-center gap-2 rounded-full bg-whatsapp px-5 py-2.5 text-white font-bold hover:brightness-110 transition"
+      data-track="whatsapp_click"
+      data-source="blog_article"
+    >
+      Pesan via WhatsApp
+    </a>
+  </footer>
+</BlogLayout>
