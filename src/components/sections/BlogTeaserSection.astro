@@ -1,0 +1,35 @@
+---
+import Container from '../common/Container.astro';
+import SectionHeading from '../common/SectionHeading.astro';
+import ArticleCard from '../blog/ArticleCard.astro';
+import Button from '../common/Button.astro';
+import { getAllArticles } from '../../lib/content';
+
+const allArticles = await getAllArticles();
+const articles = allArticles.slice(0, 3);
+---
+
+{
+  articles.length > 0 && (
+    <section class="py-12 lg:py-20 bg-soft-green-soft">
+      <Container>
+        <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 lg:mb-10">
+          <SectionHeading
+            eyebrow="Edukasi"
+            title="Pelajari Manfaat Telur Omega"
+            description="Artikel singkat tentang gizi, resep, dan tips memilih telur berkualitas untuk keluarga."
+            align="left"
+          />
+          <Button href="/blog" variant="secondary" size="md" iconRight="arrow_right" class="shrink-0">
+            Lihat Semua
+          </Button>
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {articles.map((article) => (
+            <ArticleCard article={article} />
+          ))}
+        </div>
+      </Container>
+    </section>
+  )
+}

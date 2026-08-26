@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
+Disallow: /admin/
 Sitemap: https://ohmega.web.id/sitemap.xml
