@@ -1,4 +1,4 @@
-import { prices, perUnitPrice } from './prices';
+import { prices, perUnitPrice } from '../lib/content';
 import { buildWhatsAppLink, buildPackMessage } from '../utils/whatsapp';
 
 export interface Product {

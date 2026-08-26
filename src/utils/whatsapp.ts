@@ -1,5 +1,5 @@
 import { site } from '../data/site';
-import { prices } from '../data/prices';
+import { prices } from '../lib/content';
 
 const base = `https://wa.me/${site.whatsappInternational}`;
 
