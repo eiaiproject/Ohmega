@@ -145,7 +145,7 @@ export default {
         + "&token_type=bearer"
         + "&provider=github"
         + "&state=" + encodeURIComponent(targetOrigin);
-      window.location.replace(targetOrigin.replace(/\/$/, "") + "/admin/" + hash);
+      window.location.replace(targetOrigin.replace(/$/, "") + "/admin/" + hash);
     })();
   </script>
   <noscript>
