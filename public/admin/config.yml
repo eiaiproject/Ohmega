@@ -17,9 +17,11 @@ backend:
   repo: eiaiproject/Ohmega
   branch: main
   # open_authoring: true   # aktifkan kalau mau izinkan non-collaborator login
-  base_url: https://ohmega.web.id  # sama dengan site; Decap akan panggil /admin/ sebagai callback
-  # URL Worker OAuth bridge (sudah di-deploy, lihat scripts/ohmega-cms-auth/DEPLOY.md)
-  auth_endpoint: https://ohmega.eiai.workers.dev
+  # base_url + auth_endpoint = URL Worker OAuth bridge.
+  # Decap GitHub backend construct popup URL: ${base_url}/${auth_endpoint}?provider=github&...
+  # Worker di scripts/ohmega-cms-auth/ route /auth (handle GitHub OAuth redirect).
+  base_url: https://ohmega.eiai.workers.dev
+  auth_endpoint: auth
 
 # Tampilkan editor ini sebagai identitas pengguna di GitHub commit
 publish_mode: editorial_workflow
