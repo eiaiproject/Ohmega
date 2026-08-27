@@ -110,8 +110,11 @@ export default {
         return jsonResponse({ error: 'no_access_token', raw: tokenData }, 500, allowedOrigin);
       }
 
-      // Render HTML yang mengirim token ke Decap CMS via postMessage
-      // Decap membuka worker di popup, lalu menerima token di window.opener
+      // Render HTML yang mengirim token ke Decap CMS via Netlify-style handshake:
+      //   1. Worker (popup) kirim "authorizing:github" ke parent
+      //   2. Parent (admin) echo balik "authorizing:github"
+      //   3. Worker kirim "authorization:github:success:{token}" ke parent
+      //   4. Parent terima, simpan token, close popup
       const html = `<!doctype html>
 <html lang="id">
 <head>
@@ -123,29 +126,42 @@ export default {
   <p>Menghubungkan ke OHMEGA CMS…</p>
   <script>
     (function () {
+      var ACCESS_TOKEN = ${JSON.stringify(accessToken)};
+      var WORKER_ORIGIN = ${JSON.stringify(base)};
+      var ADMIN_ORIGIN = ${JSON.stringify(allowedOrigin)};
       var payload = {
-        api: "token",
-        token: ${JSON.stringify(accessToken)},
+        token: ACCESS_TOKEN,
         provider: "github"
       };
-      // Decode 'state' (allowedOrigin) dari query param
-      var params = new URLSearchParams(location.search);
-      var targetOrigin = ${JSON.stringify(state)};
-      try {
+      function sendSuccess() {
+        var msg = "authorization:github:success:" + JSON.stringify(payload);
         if (window.opener && !window.opener.closed) {
-          window.opener.postMessage(payload, targetOrigin);
-          window.close();
-          return;
+          window.opener.postMessage(msg, ADMIN_ORIGIN);
         }
-      } catch (e) {
-        // fallthrough ke redirect
       }
-      // Fallback: redirect ke admin dengan token di hash
-      var hash = "#access_token=" + encodeURIComponent(payload.token)
-        + "&token_type=bearer"
-        + "&provider=github"
-        + "&state=" + encodeURIComponent(targetOrigin);
-      window.location.replace(targetOrigin.replace(/$/, "") + "/admin/" + hash);
+      function onMessage(e) {
+        // Parent echoes "authorizing:github" back; respond with success.
+        if (e.data === "authorizing:github" && e.origin === ADMIN_ORIGIN) {
+          window.removeEventListener("message", onMessage, false);
+          sendSuccess();
+        }
+      }
+      if (window.opener && !window.opener.closed) {
+        window.addEventListener("message", onMessage, false);
+        // Initiate handshake from popup (worker) to parent (admin).
+        window.opener.postMessage("authorizing:github", ADMIN_ORIGIN);
+        // Fallback jika parent tidak respond dalam 5 detik.
+        setTimeout(function () {
+          window.removeEventListener("message", onMessage, false);
+          sendSuccess();
+        }, 5000);
+      } else {
+        // Tidak ada parent (popup dibuka langsung): redirect ke admin dengan token di hash.
+        var hash = "#access_token=" + encodeURIComponent(ACCESS_TOKEN)
+          + "&token_type=bearer"
+          + "&provider=github";
+        window.location.replace(ADMIN_ORIGIN + "/admin/" + hash);
+      }
     })();
   </script>
   <noscript>
