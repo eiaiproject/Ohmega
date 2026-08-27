@@ -1,9 +1,5 @@
 {
   "name": "ohmega-cms-auth",
-  "main": "worker.js",
-  "compatibility_date": "2024-11-01",
-  "vars": {
-    "REPO": "eiaiproject/Ohmega",
-    "ALLOWED_ORIGIN": "https://ohmega.web.id"
-  }
+  "private": true,
+  "description": "OAuth bridge antara Decap CMS dan GitHub untuk OHMEGA admin."
 }

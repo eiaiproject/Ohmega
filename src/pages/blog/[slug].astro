@@ -3,6 +3,7 @@ import BlogLayout from '../../layouts/BlogLayout.astro';
 import ArticleMeta from '../../components/blog/ArticleMeta.astro';
 import { getAllArticles } from '../../lib/content';
 import { render } from 'astro:content';
+import { site } from '../../data/site';
 import type { GetStaticPaths } from 'astro';
 
 export const getStaticPaths = (async () => {
@@ -22,15 +23,15 @@ const jsonLd = {
   "@type": "BlogPosting",
   headline: title,
   description: description,
-  image: hero ? `https://ohmega.web.id${hero}` : undefined,
+  image: hero ? `${site.siteUrl}${hero}` : undefined,
   datePublished: date.toISOString(),
   author: { "@type": "Organization", name: "OHMEGA" },
   publisher: {
     "@type": "Organization",
     name: "OHMEGA",
-    logo: { "@type": "ImageObject", url: "https://ohmega.web.id/logo/ohmega-logo.svg" },
+    logo: { "@type": "ImageObject", url: `${site.siteUrl}/logo/ohmega-logo.svg` },
   },
-  mainEntityOfPage: `https://ohmega.web.id/blog/${articleSlug}`,
+  mainEntityOfPage: `${site.siteUrl}/blog/${articleSlug}`,
 };
 ---
 
@@ -82,7 +83,7 @@ const jsonLd = {
     <p class="text-text font-bold">Tertarik mencoba telur OHMEGA?</p>
     <p class="mt-1 text-sm text-text-muted">Antar ke rumah di Sidoarjo — stok & waktu kirim dikonfirmasi via WhatsApp.</p>
     <a
-      href="https://wa.me/6285111331269?text=Halo%20OHMEGA%2C%20saya%20ingin%20memesan%20telur%20omega."
+      href={`https://wa.me/${site.whatsappInternational}?text=Halo%20OHMEGA%2C%20saya%20ingin%20memesan%20telur%20omega.`}
       class="mt-4 inline-flex items-center gap-2 rounded-full bg-whatsapp px-5 py-2.5 text-white font-bold hover:brightness-110 transition"
       data-track="whatsapp_click"
       data-source="blog_article"

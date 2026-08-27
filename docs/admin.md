@@ -35,21 +35,24 @@ langsung.
 Karena situs di-host di Cloudflare Pages (bukan Netlify), perlu OAuth
 bridge sebagai perantara antara Decap ↔ GitHub.
 
-**Opsi paling mudah: deploy Cloudflare Worker.**
+**Opsi paling mudah: deploy Cloudflare Worker** yang sudah disiapkan di
+folder `scripts/ohmega-cms-auth/` (lihat
+[`scripts/ohmega-cms-auth/DEPLOY.md`](scripts/ohmega-cms-auth/DEPLOY.md) untuk
+panduan langkah-demi-langkah).
 
-1. Fork repo [vencax/netlify-cms-oauth-provider](https://github.com/vencax/netlify-cms-oauth-provider).
-2. Deploy ke Cloudflare Workers (`wrangler deploy`).
-3. Di dashboard Cloudflare, set secrets:
-   - `GITHUB_CLIENT_ID` — dari GitHub OAuth App
-   - `GITHUB_CLIENT_SECRET` — dari GitHub OAuth App
-   - `REPO` — `eiaiproject/Ohmega`
-4. Catat URL worker (misal `https://ohmega-cms-auth.<subdomain>.workers.dev`).
-5. Buat GitHub OAuth App di <https://github.com/settings/developers>:
+Ringkas:
+
+1. `cd scripts/ohmega-cms-auth && npm install -g wrangler && wrangler login`
+2. Set secrets di Cloudflare: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`
+3. `wrangler deploy` → catat URL worker
+   (misal `https://ohmega-cms-auth.<subdomain>.workers.dev`)
+4. Buat GitHub OAuth App di <https://github.com/settings/developers>:
    - Homepage URL: `https://ohmega.web.id`
-   - Authorization callback URL: `https://<worker-url>/callback`
-6. Edit `public/admin/config.yml` di repo:
+   - Authorization callback URL: `<worker-url>/callback`
+5. Edit `public/admin/config.yml` di repo:
    - Ganti `auth_endpoint: api.netlify.com` → URL worker kamu
-7. Commit & deploy. CMS siap pakai.
+   (lihat juga [`scripts/ohmega-cms-auth/CONFIGURE-DECAP.md`](scripts/ohmega-cms-auth/CONFIGURE-DECAP.md))
+6. Commit & deploy. CMS siap pakai.
 
 **Opsi alternatif:** Pakai layanan OAuth publik seperti
 [silverbulletmd/decap-cms-oauth-provider](https://github.com/silverbulletmd/decap-cms-oauth-provider)

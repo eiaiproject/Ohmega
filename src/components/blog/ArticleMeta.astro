@@ -1,5 +1,4 @@
 ---
-import Icon from '../common/Icon.astro';
 import type { Article } from '../../lib/content';
 
 interface Props {
@@ -17,10 +16,7 @@ const formattedDate = date.toLocaleDateString('id-ID', {
 ---
 
 <div class:list={['flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-text-muted', className]}>
-  <div class="flex items-center gap-1.5">
-    <Icon name="message" size={16} class="shrink-0" />
-    <time datetime={date.toISOString()}>{formattedDate}</time>
-  </div>
+  <time datetime={date.toISOString()}>{formattedDate}</time>
   {
     tags.length > 0 && (
       <div class="flex flex-wrap items-center gap-1.5">

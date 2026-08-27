@@ -34,7 +34,7 @@ const url = canonical
   : new URL(Astro.url.pathname, site.siteUrl).toString();
 
 const image = heroImage
-  ? `${site.siteUrl}${heroImage}?v=${publishDate?.valueOf() ?? imageVersion}`
+  ? `${site.siteUrl}${heroImage}?v=${imageVersion}`
   : `${site.siteUrl}${site.ogImage}?v=${imageVersion}`;
 ---
 

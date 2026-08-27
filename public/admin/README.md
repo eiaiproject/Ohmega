@@ -20,12 +20,13 @@ Decap CMS default butuh OAuth App sebagai bridge login. Karena situs di-host
 di Cloudflare Pages (bukan Netlify), gunakan salah satu:
 
 **Opsi A — Cloudflare Worker (gratis):**
-1. Deploy worker sederhana dari repo
-   [vencax/netlify-cms-oauth-provider](https://github.com/vencax/netlify-cms-oauth-provider)
-   ke Cloudflare Workers.
-2. Set secrets: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`, `REPO`.
+1. Deploy worker dari folder `scripts/ohmega-cms-auth/` (lihat
+   `scripts/ohmega-cms-auth/DEPLOY.md` untuk panduan lengkap) ke Cloudflare
+   Workers.
+2. Set secrets: `GITHUB_CLIENT_ID`, `GITHUB_CLIENT_SECRET`.
 3. URL worker (misal `https://ohmega-cms-auth.workers.dev`) → masukkan ke
-   `public/admin/config.yml` bagian `auth_endpoint`.
+   `public/admin/config.yml` bagian `auth_endpoint` (lihat juga
+   `scripts/ohmega-cms-auth/CONFIGURE-DECAP.md`).
 
 **Opsi B — OAuth proxy gratis publik:**
 Gunakan layanan seperti [decaporg/oauth-client](https://github.com/decaporg/oauth-client).
