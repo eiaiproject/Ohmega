@@ -1,0 +1,17 @@
+name = "ohmega-cms-auth"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Konfigurasi non-secret (yang secret ada di dashboard / wrangler secret put):
+# - GITHUB_CLIENT_ID     → set via:  wrangler secret put GITHUB_CLIENT_ID
+# - GITHUB_CLIENT_SECRET → set via:  wrangler secret put GITHUB_CLIENT_SECRET
+
+[vars]
+REPO = "eiaiproject/Ohmega"
+ALLOWED_ORIGIN = "https://ohmega.web.id"
+
+# Pakai custom subdomain gratis *.workers.dev (default).
+# Kalau sudah pakai domain kustom, tambahkan routes di bawah.
+# routes = [
+#   { pattern = "cms-auth.ohmega.web.id/*", custom_domain = true }
+# ]
