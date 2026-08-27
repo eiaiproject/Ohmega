@@ -41,6 +41,6 @@ export async function getAllArticles(): Promise<Article[]> {
 /** Satu artikel by slug. */
 export async function getArticle(slug: string): Promise<Article | undefined> {
   const entry = await getEntry('articles', slug);
-  if (!entry || entry.data.status !== 'published') return undefined;
+  if (entry?.data.status !== 'published') return undefined;
   return entry;
 }
