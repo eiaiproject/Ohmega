@@ -5,3 +5,6 @@ dist
 .env.*
 !.env.example
 .DS_Store
+# Kredensial lokal (jangan commit)
+gh.md
+cf.md

@@ -1,5 +1,5 @@
 {
-  "name": "ohmega-cms-auth",
+  "name": "ohmega",
   "private": true,
   "description": "OAuth bridge antara Decap CMS dan GitHub untuk OHMEGA admin."
 }
