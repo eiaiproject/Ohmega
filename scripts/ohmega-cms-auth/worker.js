@@ -126,15 +126,14 @@ export default {
   <p>Menghubungkan ke OHMEGA CMS…</p>
   <script>
     (function () {
-      var ACCESS_TOKEN = ${JSON.stringify(accessToken)};
-      var WORKER_ORIGIN = ${JSON.stringify(base)};
-      var ADMIN_ORIGIN = ${JSON.stringify(allowedOrigin)};
-      var payload = {
+      const ACCESS_TOKEN = ${JSON.stringify(accessToken)};
+      const ADMIN_ORIGIN = ${JSON.stringify(allowedOrigin)};
+      const payload = {
         token: ACCESS_TOKEN,
         provider: "github"
       };
       function sendSuccess() {
-        var msg = "authorization:github:success:" + JSON.stringify(payload);
+        const msg = "authorization:***" + JSON.stringify(payload);
         if (window.opener && !window.opener.closed) {
           window.opener.postMessage(msg, ADMIN_ORIGIN);
         }
@@ -142,22 +141,22 @@ export default {
       function onMessage(e) {
         // Parent echoes "authorizing:github" back; respond with success.
         if (e.data === "authorizing:github" && e.origin === ADMIN_ORIGIN) {
-          window.removeEventListener("message", onMessage, false);
+          window.removeEventListener("message", onMessage);
           sendSuccess();
         }
       }
       if (window.opener && !window.opener.closed) {
-        window.addEventListener("message", onMessage, false);
+        window.addEventListener("message", onMessage);
         // Initiate handshake from popup (worker) to parent (admin).
         window.opener.postMessage("authorizing:github", ADMIN_ORIGIN);
         // Fallback jika parent tidak respond dalam 5 detik.
         setTimeout(function () {
-          window.removeEventListener("message", onMessage, false);
+          window.removeEventListener("message", onMessage);
           sendSuccess();
         }, 5000);
       } else {
         // Tidak ada parent (popup dibuka langsung): redirect ke admin dengan token di hash.
-        var hash = "#access_token=" + encodeURIComponent(ACCESS_TOKEN)
+        const hash = "#access_token=" + encodeURIComponent(ACCESS_TOKEN)
           + "&token_type=bearer"
           + "&provider=github";
         window.location.replace(ADMIN_ORIGIN + "/admin/" + hash);
