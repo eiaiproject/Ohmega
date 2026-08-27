@@ -8,3 +8,9 @@ dist
 # Kredensial lokal (jangan commit)
 gh.md
 cf.md
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
