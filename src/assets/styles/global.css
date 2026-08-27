@@ -46,6 +46,20 @@
   --radius-card-lg: 28px;
 }
 
+/* Prose styling untuk halaman blog (markdown content). */
+.prose-ohmega { color: var(--color-text); line-height: 1.75; }
+.prose-ohmega h2 { font-size: 1.5rem; font-weight: 800; margin-top: 2rem; margin-bottom: 0.75rem; color: var(--color-text); }
+.prose-ohmega h3 { font-size: 1.25rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+.prose-ohmega p { margin: 0.75rem 0; }
+.prose-ohmega ul, .prose-ohmega ol { margin: 0.75rem 0; padding-left: 1.5rem; }
+.prose-ohmega li { margin: 0.25rem 0; }
+.prose-ohmega a { color: var(--color-primary); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.prose-ohmega a:hover { color: var(--color-primary-light); }
+.prose-ohmega strong { font-weight: 700; color: var(--color-text); }
+.prose-ohmega code { background: var(--color-soft-green-soft); padding: 0.1em 0.35em; border-radius: 0.25rem; font-size: 0.9em; }
+.prose-ohmega blockquote { border-left: 3px solid var(--color-primary); padding-left: 1rem; color: var(--color-text-muted); font-style: italic; }
+.prose-ohmega hr { border: none; border-top: 1px solid var(--color-border); margin: 2rem 0; }
+
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

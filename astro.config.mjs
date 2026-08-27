@@ -8,4 +8,6 @@ export default defineConfig({
   },
   build: { format: 'directory' },
   compressHTML: true,
+  // Halaman admin Decap di /admin/index.html dilayani dari public/ sebagai static file.
+  // Decap menggunakan routing client-side (hash-based), tidak butuh trailingSlash khusus.
 });

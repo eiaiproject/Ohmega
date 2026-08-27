@@ -1,0 +1,9 @@
+# Contoh konfigurasi dengan OAuth bridge (Cloudflare Worker)
+# Salin isi file ini ke `config.yml` dan isi `auth_endpoint` dengan URL worker kamu.
+
+backend:
+  name: github
+  repo: eiaiproject/Ohmega
+  branch: main
+  base_url: https://ohmega.web.id
+  auth_endpoint: https://ohmega-cms-auth.<your-subdomain>.workers.dev

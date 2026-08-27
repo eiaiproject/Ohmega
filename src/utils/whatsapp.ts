@@ -1,9 +1,9 @@
 import { site } from '../data/site';
-import { prices } from '../data/prices';
+import { prices } from '../lib/content';
 
 const base = `https://wa.me/${site.whatsappInternational}`;
 
-/** Pesan pemesanan untuk satu kemasan, dengan harga otomatis dari `src/data/prices.ts`. */
+/** Pesan pemesanan untuk satu kemasan, dengan harga otomatis dari content loader (`src/lib/content.ts`). */
 export function buildPackMessage(quantity: number, price: number): string {
   const formatted = `Rp${price.toLocaleString('id-ID')}`;
   return `Halo OHMEGA, saya ingin memesan telur omega kemasan isi ${quantity} seharga ${formatted}.\n\nNama:\nAlamat pengiriman:\nJumlah kemasan:\nPilihan waktu pengiriman:`;
