@@ -62,3 +62,43 @@ test.describe('OHMEGA Admin /admin', () => {
     console.log('Decap mount check:', JSON.stringify(decapMounted, null, 2));
   });
 });
+
+test.describe('OHMEGA Admin theme', () => {
+  test('theme.css & branding.js ter-load', async ({ page }) => {
+    const requests: string[] = [];
+    page.on('request', (req) => requests.push(req.url()));
+
+    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+
+    expect(requests.some((u) => u.endsWith('/admin/theme.css'))).toBeTruthy();
+    expect(requests.some((u) => u.endsWith('/admin/branding.js'))).toBeTruthy();
+  });
+
+  test('favicon pakai brand', async ({ page }) => {
+    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    const faviconHref = await page.getAttribute('link[rel="icon"]', 'href');
+    expect(faviconHref).toBe('/favicon.svg');
+  });
+
+  test('title halaman admin = "OHMEGA Admin"', async ({ page }) => {
+    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    expect(await page.title()).toBe('OHMEGA Admin');
+  });
+
+  test('theme.css di-serve dengan HTTP 200 + ukuran > 1KB', async ({ page }) => {
+    const resp = await page.goto(`${BASE_URL}/admin/theme.css`);
+    expect(resp?.status()).toBe(200);
+    const body = await resp?.text();
+    expect(body?.length).toBeGreaterThan(1000);
+    expect(body).toContain('--color-primary');
+    expect(body).toContain('Nunito Sans');
+  });
+
+  test('branding.js di-serve dengan HTTP 200 + ada MutationObserver', async ({ page }) => {
+    const resp = await page.goto(`${BASE_URL}/admin/branding.js`);
+    expect(resp?.status()).toBe(200);
+    const body = await resp?.text();
+    expect(body).toContain('MutationObserver');
+    expect(body).toContain('OHMEGA_LOGO');
+  });
+});

@@ -14,3 +14,6 @@ cf.md
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Screenshot output (local-only)
+screenshots/

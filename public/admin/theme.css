@@ -1,0 +1,322 @@
+/*
+ * OHMEGA Admin Theme. selaraskan Decap CMS UI dengan brand.
+ *
+ * Decap v3 pakai Emotion CSS-in-JS, class di-hash tapi component-name tetap
+ * eksplisit (mis. "LoginButton-button-button-default"). Pakai partial match.
+ *
+ * Override default stylesheet via class selector dengan !important.
+ */
+
+@import url("/fonts/nunito-sans-regular.woff2");
+@import url("/fonts/nunito-sans-semibold.woff2");
+@import url("/fonts/nunito-sans-bold.woff2");
+@import url("/fonts/nunito-sans-extrabold.woff2");
+
+/* ─── Brand tokens (mirror src/assets/styles/global.css @theme) ─── */
+:root {
+  --color-primary-dark: #173F2C;
+  --color-primary: #245D40;
+  --color-primary-light: #2F7350;
+  --color-soft-green: #DDEDE3;
+  --color-soft-green-soft: #F1F8F3;
+  --color-yolk: #F5A900;
+  --color-yolk-light: #FFBC24;
+  --color-cream: #FFFDF6;
+  --color-yolk-soft: #FFF0C2;
+  --color-text: #183126;
+  --color-text-muted: #607067;
+  --color-border: #DDE5DF;
+  --color-surface: #FFFFFF;
+  --color-whatsapp: #25D366;
+  --font-sans: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ─── Base: ganti system-ui ke Nunito Sans di seluruh app ─── */
+html, body,
+body * {
+  font-family: var(--font-sans) !important;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: var(--color-soft-green-soft) !important;
+  color: var(--color-text) !important;
+}
+
+/* ─── LOGIN PAGE (AuthenticationPage) ─── */
+/* Section wrapper: kasih background lebih jelas */
+[class*="StyledAuthenticationPage"] {
+  background: var(--color-soft-green-soft) !important;
+  padding: 3rem 2rem !important;
+  border-radius: 16px !important;
+  box-shadow: 0 12px 40px rgba(23, 63, 44, 0.08) !important;
+}
+
+/* Decap logo icon: ganti dari pink 'D' ke brand circle dengan logo brand */
+[class*="IconWrapper-DecapLogoIcon"] {
+  background: var(--color-primary-dark) !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 80px !important;
+  height: 80px !important;
+  margin: 0 auto 1.5rem !important;
+  border: 3px solid var(--color-yolk) !important;
+  box-shadow: 0 8px 24px rgba(23, 63, 44, 0.2) !important;
+}
+/* Hide default Decap 'D' SVG, replace with brand logo */
+[class*="IconWrapper-DecapLogoIcon"] svg {
+  display: none !important;
+}
+/* Tambah OHMEGA text di bawah logo (via pseudo-element) */
+[class*="IconWrapper-DecapLogoIcon"]::after {
+  content: "OHMEGA" !important;
+  color: var(--color-cream) !important;
+  font-size: 0.95rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 1px !important;
+}
+
+/* Login button (default LoginButton component) */
+[class*="LoginButton-button"] {
+  background: var(--color-primary) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid var(--color-primary-dark) !important;
+  border-radius: 8px !important;
+  padding: 0.75rem 1.5rem !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  transition: all 0.15s ease !important;
+  box-shadow: 0 2px 8px rgba(23, 63, 44, 0.15) !important;
+}
+[class*="LoginButton-button"]:hover {
+  background: var(--color-primary-dark) !important;
+  box-shadow: 0 4px 16px rgba(23, 63, 44, 0.3) !important;
+  transform: translateY(-1px) !important;
+}
+[class*="LoginButton-button"]:disabled {
+  background: var(--color-text-muted) !important;
+  border-color: var(--color-text-muted) !important;
+  cursor: not-allowed !important;
+  opacity: 0.6 !important;
+}
+
+/* ─── HEADER (AppHeader) ─── */
+[class*="AppHeader"] {
+  background: var(--color-primary-dark) !important;
+  color: var(--color-cream) !important;
+  border-bottom: 2px solid var(--color-yolk) !important;
+}
+[class*="AppHeader"] * {
+  color: var(--color-cream) !important;
+}
+[class*="AppHeader"] a,
+[class*="AppHeader"] button {
+  color: var(--color-cream) !important;
+}
+
+/* Logo brand di header: ganti icon Decap dengan brand */
+[class*="AppHeader-logo"] {
+  background: var(--color-cream) !important;
+  border-radius: 6px !important;
+  padding: 4px 10px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+[class*="AppHeader-logo"] svg {
+  display: none !important;
+}
+[class*="AppHeader-logo"]::after {
+  content: "OHMEGA" !important;
+  color: var(--color-primary-dark) !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  letter-spacing: 0.5px !important;
+}
+
+/* ─── SIDEBAR (AppSidebar) ─── */
+[class*="AppSidebar"] {
+  background: var(--color-surface) !important;
+  border-right: 1px solid var(--color-border) !important;
+}
+[class*="AppSidebar-link"] {
+  color: var(--color-text) !important;
+  border-left: 3px solid transparent !important;
+  transition: all 0.15s ease !important;
+}
+[class*="AppSidebar-link"]:hover {
+  background: var(--color-soft-green-soft) !important;
+  color: var(--color-primary) !important;
+}
+[class*="AppSidebar-link"][class*="active"],
+[class*="AppSidebar-link"][class*="selected"] {
+  background: var(--color-soft-green) !important;
+  color: var(--color-primary-dark) !important;
+  border-left-color: var(--color-yolk) !important;
+  font-weight: 700 !important;
+}
+
+/* ─── BUTTONS ─── */
+/* Primary (Publish) — Decap pakai class dengan substring "primary" */
+button[class*="primary"]:not([class*="LoginButton"]) {
+  background: var(--color-primary) !important;
+  color: var(--color-cream) !important;
+  border: 1px solid var(--color-primary-dark) !important;
+}
+button[class*="primary"]:not([class*="LoginButton"]):hover {
+  background: var(--color-primary-dark) !important;
+}
+
+/* Default (secondary) */
+button[class*="default"]:not([class*="LoginButton"]) {
+  background: var(--color-surface) !important;
+  color: var(--color-primary) !important;
+  border: 1px solid var(--color-border) !important;
+}
+button[class*="default"]:not([class*="LoginButton"]):hover {
+  background: var(--color-soft-green-soft) !important;
+  border-color: var(--color-primary) !important;
+}
+
+/* Danger (Delete) */
+button[class*="delete"],
+button[class*="danger"] {
+  background: transparent !important;
+  color: #B91C1C !important;
+  border: 1px solid #B91C1C !important;
+}
+button[class*="delete"]:hover,
+button[class*="danger"]:hover {
+  background: #FEE2E2 !important;
+}
+
+/* ─── FORM CONTROLS (inputs, textareas, selects) ─── */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="date"],
+input[type="datetime-local"],
+textarea,
+select,
+[class*="InputControl-input"] {
+  font-family: var(--font-sans) !important;
+  background: var(--color-surface) !important;
+  color: var(--color-text) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 6px !important;
+  padding: 0.5rem 0.75rem !important;
+}
+input:focus,
+textarea:focus,
+select:focus,
+[class*="InputControl-input"]:focus {
+  outline: none !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 3px var(--color-soft-green) !important;
+}
+
+/* Labels */
+[class*="Control-label"],
+[class*="InputControl-label"] {
+  color: var(--color-text) !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Hints */
+[class*="Control-hint"],
+[class*="InputControl-hint"] {
+  color: var(--color-text-muted) !important;
+  font-size: 0.8rem !important;
+  font-style: italic !important;
+}
+
+/* ─── TABLES (article list) ─── */
+[class*="Table"] {
+  background: var(--color-surface) !important;
+  border: 1px solid var(--color-border) !important;
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+[class*="Table-th"] {
+  background: var(--color-soft-green-soft) !important;
+  color: var(--color-text) !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.5px !important;
+  border-bottom: 2px solid var(--color-border) !important;
+}
+[class*="Table-td"] {
+  border-bottom: 1px solid var(--color-border) !important;
+  color: var(--color-text) !important;
+}
+[class*="Table-tr"]:hover [class*="Table-td"] {
+  background: var(--color-soft-green-soft) !important;
+}
+
+/* Status badges */
+[class*="Badge"] {
+  font-weight: 700 !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.3px !important;
+  border-radius: 999px !important;
+  padding: 2px 10px !important;
+}
+[class*="Badge"][class*="success"],
+[class*="Badge"][class*="published"] {
+  background: var(--color-soft-green) !important;
+  color: var(--color-primary-dark) !important;
+}
+[class*="Badge"][class*="draft"],
+[class*="Badge"][class*="warning"] {
+  background: var(--color-yolk-soft) !important;
+  color: #92400E !important;
+}
+
+/* ─── TOAST (notifikasi) ─── */
+.Toastify__toast,
+[class*="Toastify"] {
+  background: var(--color-primary-dark) !important;
+  color: var(--color-cream) !important;
+  border-left: 3px solid var(--color-yolk) !important;
+  font-family: var(--font-sans) !important;
+}
+
+/* ─── LINKS ─── */
+a {
+  color: var(--color-primary) !important;
+}
+a:hover {
+  color: var(--color-primary-light) !important;
+}
+
+/* ─── SCROLLBAR (webkit) ─── */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-soft-green-soft);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+
+/* ─── SELECTION ─── */
+::selection {
+  background: var(--color-yolk-soft);
+  color: var(--color-text);
+}
