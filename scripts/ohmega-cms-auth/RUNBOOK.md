@@ -1,4 +1,4 @@
-# OHMEGA CMS Auth — Runbook
+# OHMEGA CMS Auth: Runbook
 
 Panduan end-to-end deploy OAuth Worker + setup GitHub OAuth App + aktifkan
 `/admin` di ohmega.web.id. Estimasi total: 15-20 menit.
@@ -6,13 +6,13 @@ Panduan end-to-end deploy OAuth Worker + setup GitHub OAuth App + aktifkan
 ## Prasyarat
 
 - Akses owner ke repo `eiaiproject/Ohmega` di GitHub
-- Akun Cloudflare (gratis) — pastikan domain `ohmega.web.id` sudah ditambahkan ke dashboard
+- Akun Cloudflare (gratis): pastikan domain `ohmega.web.id` sudah ditambahkan ke dashboard
 - Node.js 20+ & npm terinstall
 - Terminal dengan akses ke `wrangler` (install global: `npm install -g wrangler`)
 
 ---
 
-## Langkah 1 — Merge PR #1
+## Langkah 1: Merge PR #1
 
 PR sudah ready di branch `feature/admin-cms`. Review terakhir:
 
@@ -24,12 +24,12 @@ gh pr merge 1 --squash    # squash merge ke main
 
 Setelah merge, Cloudflare Pages otomatis rebuild situs. Tunggu ±1-2 menit.
 
-**Verifikasi**: buka <https://ohmega.web.id/admin/> — halaman Decap muncul
+**Verifikasi**: buka <https://ohmega.web.id/admin/>: halaman Decap muncul
 (tapi Login dengan GitHub belum akan berhasil sampai Langkah 5 selesai).
 
 ---
 
-## Langkah 2 — Buat GitHub OAuth App
+## Langkah 2: Buat GitHub OAuth App
 
 1. Buka <https://github.com/settings/developers>
 2. Klik **OAuth Apps** (sidebar kiri) → **New OAuth App**
@@ -47,7 +47,7 @@ Setelah merge, Cloudflare Pages otomatis rebuild situs. Tunggu ±1-2 menit.
 
 ---
 
-## Langkah 3 — Deploy Cloudflare Worker
+## Langkah 3: Deploy Cloudflare Worker
 
 ```bash
 cd scripts/ohmega-cms-auth
@@ -76,7 +76,7 @@ Deployed ohmega-cms-auth triggers (0.XX sec)
    https://ohmega-cms-auth.<subdomain>.workers.dev
 ```
 
-**Catat URL worker** — misal `https://ohmega-cms-auth.anggie.workers.dev`.
+**Catat URL worker**: misal `https://ohmega-cms-auth.anggie.workers.dev`.
 
 **Verifikasi cepat**:
 
@@ -92,7 +92,7 @@ Harus return JSON:
 
 ---
 
-## Langkah 4 — Update GitHub OAuth App callback
+## Langkah 4: Update GitHub OAuth App callback
 
 1. Kembali ke <https://github.com/settings/developers> → klik OAuth App yang
    baru dibuat
@@ -102,7 +102,7 @@ Harus return JSON:
 
 ---
 
-## Langkah 5 — Kaitkan Worker dengan Decap
+## Langkah 5: Kaitkan Worker dengan Decap
 
 Edit `public/admin/config.yml` di repo:
 
@@ -127,20 +127,20 @@ Cloudflare Pages akan rebuild dalam ±1-2 menit.
 
 ---
 
-## Langkah 6 (opsional) — Custom Domain untuk Worker
+## Langkah 6 (opsional): Custom Domain untuk Worker
 
 Pakai `cms-auth.ohmega.web.id` (lebih rapi dari `*.workers.dev`):
 
 1. Dashboard Cloudflare → **Workers & Pages** → `ohmega-cms-auth` →
    **Settings** → **Triggers** → **Custom Domains** → **Add Custom Domain**
 2. Isi `cms-auth.ohmega.web.id` → klik **Add Custom Domain**
-3. Cloudflare otomatis setup DNS (CNAME) — tidak perlu edit zone manual
+3. Cloudflare otomatis setup DNS (CNAME): tidak perlu edit zone manual
 4. Ulangi **Langkah 4** dengan URL baru (`https://cms-auth.ohmega.web.id/callback`)
 5. Ulangi **Langkah 5** dengan URL baru di `auth_endpoint`
 
 ---
 
-## Langkah 7 — Test End-to-End
+## Langkah 7: Test End-to-End
 
 1. Buka <https://ohmega.web.id/admin/>
 2. Klik **Login with GitHub**
@@ -176,7 +176,7 @@ wrangler deploy  # redeploy agar secret ter-load
 ### Popup login Decap tidak nutup otomatis
 
 - Browser block popup. Izinkan popup untuk domain `ohmega.web.id`.
-- Atau tunggu — fallback akan redirect ke `/admin` dengan token di URL.
+- Atau tunggu: fallback akan redirect ke `/admin` dengan token di URL.
 
 ### "Failed to load" di console browser saat buka `/admin`
 

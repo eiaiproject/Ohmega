@@ -1,6 +1,6 @@
 # Halaman Admin OHMEGA (`/admin`)
 
-Folder ini berisi **Decap CMS** — antarmuka web untuk mengedit data situs tanpa
+Folder ini berisi **Decap CMS**: antarmuka web untuk mengedit data situs tanpa
 entuh kode. Disajikan sebagai static file, tidak ada server.
 
 ## Cara Pakai
@@ -8,8 +8,8 @@ entuh kode. Disajikan sebagai static file, tidak ada server.
 1. Buka <https://ohmega.web.id/admin/> di browser.
 2. Klik **Login with GitHub** → izinkan akses ke repo `eiaiproject/Ohmega`.
 3. Pilih menu:
-   - **Harga Produk** — ubah angka `pack4` / `pack10` / `pack30`, klik Publish.
-   - **Artikel Edukasi** — buat baru, edit, atau hapus artikel.
+   - **Harga Produk**: ubah angka `pack4` / `pack10` / `pack30`, klik Publish.
+   - **Artikel Edukasi**: buat baru, edit, atau hapus artikel.
 4. Setiap Publish = commit ke `main` + auto-deploy ke Cloudflare Pages (~1-2 menit).
 
 ## Setup Awal (sekali saja, owner saja)
@@ -19,7 +19,7 @@ entuh kode. Disajikan sebagai static file, tidak ada server.
 Decap CMS default butuh OAuth App sebagai bridge login. Karena situs di-host
 di Cloudflare Pages (bukan Netlify), gunakan salah satu:
 
-**Opsi A — Cloudflare Worker (gratis):**
+**Opsi A: Cloudflare Worker (gratis):**
 1. Deploy worker dari folder `scripts/ohmega-cms-auth/` (lihat
    `scripts/ohmega-cms-auth/DEPLOY.md` untuk panduan lengkap) ke Cloudflare
    Workers.
@@ -28,7 +28,7 @@ di Cloudflare Pages (bukan Netlify), gunakan salah satu:
    `public/admin/config.yml` bagian `auth_endpoint` (lihat juga
    `scripts/ohmega-cms-auth/CONFIGURE-DECAP.md`).
 
-**Opsi B — OAuth proxy gratis publik:**
+**Opsi B: OAuth proxy gratis publik:**
 Gunakan layanan seperti [decaporg/oauth-client](https://github.com/decaporg/oauth-client).
 Konfigurasi lebih lanjut lihat [docs Decap](https://decapcms.org/docs/external-oauth-clients/).
 

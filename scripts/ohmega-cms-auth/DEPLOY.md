@@ -1,7 +1,7 @@
 # Panduan Deploy Worker OHMEGA CMS Auth
 
 Setup OAuth bridge antara Decap CMS dan GitHub di Cloudflare Workers.
-Free tier 100k request/hari — lebih dari cukup untuk CMS internal.
+Free tier 100k request/hari: lebih dari cukup untuk CMS internal.
 
 ## Estimasi Waktu
 
@@ -9,7 +9,7 @@ Free tier 100k request/hari — lebih dari cukup untuk CMS internal.
 
 ## Prasyarat
 
-- Akun Cloudflare (gratis) — <https://dash.cloudflare.com/sign-up>
+- Akun Cloudflare (gratis): <https://dash.cloudflare.com/sign-up>
 - Repo `eiaiproject/Ohmega` adalah milik kamu (atau kamu owner)
 - Node.js 20+ & npm terinstall
 
@@ -46,7 +46,7 @@ wrangler login
 ```
 
 Browser akan terbuka ke halaman Cloudflare. Klik **Allow**. Setelah itu
-terminal akan kembali ke prompt — wrangler sudah tersimpan kredensialnya
+terminal akan kembali ke prompt: wrangler sudah tersimpan kredensialnya
 di `~/.config/.wrangler/config/default.toml`.
 
 ## Langkah 4: Set secrets
@@ -91,7 +91,7 @@ Deployed ohmega-cms-auth triggers (0.XX sec)
 Current Version ID: ...
 ```
 
-**Catat URL worker** — misal `https://ohmega-cms-auth.anggie.workers.dev`.
+**Catat URL worker**: misal `https://ohmega-cms-auth.anggie.workers.dev`.
 
 Test:
 
@@ -180,7 +180,7 @@ Secret belum di-set. Ulangi `wrangler secret put GITHUB_CLIENT_ID`.
 ### Popup login tidak nutup otomatis
 
 - Browser block popup. Izinkan popup untuk domain `ohmega.web.id`.
-- Atau tunggu — fallback code akan redirect ke `/admin` dengan token di URL.
+- Atau tunggu: fallback code akan redirect ke `/admin` dengan token di URL.
 
 ## Update Worker di Masa Depan
 

@@ -1,9 +1,9 @@
 # OHMEGA Landing Page
 
-Landing page penjualan untuk **OHMEGA** — telur omega lokal Sidoarjo dengan layanan antar ke rumah.  
+Landing page penjualan untuk **OHMEGA**: telur omega lokal Sidoarjo dengan layanan antar ke rumah.  
 Dibangun dengan [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwindcss.com), static site, siap deploy ke [Cloudflare Pages](https://pages.cloudflare.com).
 
-**[ohmega.web.id](https://ohmega.web.id)** — domain produksi.
+**[ohmega.web.id](https://ohmega.web.id)**: domain produksi.
 
 > Ingin edit harga atau tulis artikel edukasi tanpaentuh kode? Buka
 > <https://ohmega.web.id/admin/>. Panduan lengkap di [docs/admin.md](docs/admin.md).
@@ -17,10 +17,10 @@ Dibangun dengan [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwin
 | Framework | Astro 7 (static site generation) |
 | CSS | Tailwind CSS v4, design tokens via `@theme` |
 | TypeScript | Type-safe data, props, utilities |
-| Ikon | Reicon (`reicon@1.1.103`) — local SVG sprite, outline weight |
+| Ikon | Reicon (`reicon@1.1.103`): local SVG sprite, outline weight |
 | Font | Nunito Sans (self-hosted WOFF2, 4 weights) |
 | Deployment | Cloudflare Pages (SSG, branch `main`) |
-| Tracking | Cloudflare Web Analytics (placeholder — token belum diisi) |
+| Tracking | Cloudflare Web Analytics (placeholder: token belum diisi) |
 
 ---
 
@@ -55,57 +55,65 @@ Build output di `dist/`.
 
 ```
 src/
-  assets/styles/global.css     — Tailwind `@import`, @font-face, design tokens, utility classes, prose
+  assets/styles/global.css    : Tailwind `@import`, @font-face, design tokens, utility classes, prose
   components/
-    common/                    — Button, Container, Icon, SectionHeading, WhatsAppButton
-    layout/                    — Header, MobileMenu, Footer
-    sections/                  — Hero, TrustBar, Products, ProductCard, Nutrition,
-                                 Delivery, Certifications, OrderSteps, Producer,
-                                 BlogTeaser, FinalCTA, StickyMobileCTA
-    blog/                      — ArticleCard, ArticleMeta (komponen untuk halaman blog)
-  content.config.ts            — Astro content collection: 'articles'
-  data/                        — site.ts, navigation.ts, products.ts, nutrition.ts
-  lib/content.ts               — loader untuk prices.yaml + articles collection
-  icons/                       — index.ts (sprite loader), sprite/*.svg, README.md
+    common/                   : Button, Container, Icon, SectionHeading, WhatsAppButton
+    layout/                   : Header, MobileMenu, Footer
+    sections/                 : Hero, TrustBar, Products, ProductCard, Nutrition,
+                                Delivery, Certifications, OrderSteps, Producer,
+                                BlogTeaser, FinalCTA, StickyMobileCTA
+    blog/                     : ArticleCard, ArticleMeta (komponen untuk halaman blog)
+  content.config.ts           : Astro content collection: 'articles'
+  data/                       : site.ts, navigation.ts, products.ts, nutrition.ts
+  lib/content.ts              : loader untuk prices.yaml + articles collection
+  icons/                      : index.ts (sprite loader), sprite/*.svg, README.md
   layouts/
-    BaseLayout.astro           — HTML shell, SEO meta, JSON-LD, tracking, scroll reveal
-    BlogLayout.astro           — Layout khusus halaman /blog (dengan OG image per artikel)
+    BaseLayout.astro          : HTML shell, SEO meta, JSON-LD, tracking, scroll reveal
+    BlogLayout.astro          : Layout khusus halaman /blog (dengan OG image per artikel)
   pages/
-    index.astro                — Halaman utama
+    index.astro               : Halaman utama
     blog/
-      index.astro              — Daftar artikel edukasi
-      [slug].astro             — Detail artikel (Markdown)
-      rss.xml.ts               — RSS feed
-    404.astro                  — Halaman tidak ditemukan
-    sitemap.xml.ts             — Sitemap endpoint (dynamic, termasuk artikel)
-  utils/                       — whatsapp.ts, seo.ts
+      index.astro             : Daftar artikel edukasi
+      [slug].astro            : Detail artikel (Markdown)
+      rss.xml.ts              : RSS feed
+    404.astro                 : Halaman tidak ditemukan
+    sitemap.xml.ts            : Sitemap endpoint (dynamic, termasuk artikel)
+  utils/                      : whatsapp.ts, seo.ts
 content/
-  prices.yaml                  — Harga 3 kemasan (diedit via /admin atau teks)
-  articles/<slug>.md           — Artikel edukasi (satu file MD per artikel)
+  prices.yaml                 : Harga 3 kemasan (diedit via /admin atau teks)
+  articles/<slug>.md          : Artikel edukasi (satu file MD per artikel)
 public/
-  admin/                       — Decap CMS (UI + config.yml)
-  logo/                        — ohmega-logo.svg (wordmark + simbol telur)
-  images/                      — hero.webp, product-{4,10,30}.webp (+ .png sumber), producer.webp
-  images/blog/                 — Gambar hero artikel (upload via /admin)
-  certifications/              — nkv.svg, sig.png, halal.svg
-  labels/                      — label-isi-{4,10,30}.{svg,png} (label brand cetak)
-  fonts/                       — nunito-sans-{regular,semibold,bold,extrabold}.woff2
+  admin/                      : Decap CMS (UI + config.yml)
+  logo/                       : ohmega-logo.svg (wordmark + simbol telur)
+  images/                     : hero.webp, product-{4,10,30}.webp (+ .png sumber), producer.webp
+  images/blog/                : Gambar hero artikel (upload via /admin)
+  certifications/             : nkv.svg, sig.png, halal.svg
+  labels/                     : label-isi-{4,10,30}.{svg,png} (label brand cetak)
+  fonts/                      : nunito-sans-{regular,semibold,bold,extrabold}.woff2
   robots.txt, _headers, social-preview.{svg,png}, favicon.svg
 docs/
-  admin.md                     — Panduan lengkap pakai /admin untuk non-developer
+  admin.md                    : Panduan lengkap pakai /admin untuk non-developer
+scripts/
+  generate-icons.mjs          : Buat SVG sprite dari paket reicon
+  generate-label.mjs          : Render label cetak (PNG 300 DPI) dari SVG master
+  generate-product-images.mjs : Konversi PNG ke WebP teroptimasi
+  generate-social-preview.mjs : Render social-preview.png dari SVG
+  ohmega-cms-auth/            : Cloudflare Worker OAuth bridge + panduan deploy
+tests/
+  admin.spec.ts               : Playwright test untuk verifikasi /admin UI mount
 ```
 
 ---
 
 ## Data & Konfigurasi
 
-Semua data bisnis terpusat di `src/data/` — jangan hardcode nilai berulang.
+Semua data bisnis terpusat di `src/data/`: jangan hardcode nilai berulang.
 
-### Identitas & kontak — `src/data/site.ts`
+### Identitas & kontak: `src/data/site.ts`
 
 ```ts
 brandName               // OHMEGA
-tagline                 // High Protein, Low Cholesterol
+tagline                 // Kaya Protein, Rendah Kolesterol
 whatsappDisplay         // 085111331269
 whatsappInternational   // 6285111331269
 instagramHandle         // ohmega_id
@@ -115,24 +123,24 @@ producerCity            // Mojokerto
 deliveryArea            // Perumahan Amartha Safira
 ```
 
-### Produk & harga — `src/data/products.ts`
+### Produk & harga: `src/data/products.ts`
 
 Setiap produk memiliki:
 - `id`, `name`, `quantity`, `image`, `imageAlt`, `description`
 - `status: 'available' | 'coming-soon'`
-- `price`, `pricePerUnit`, `savings` — **otomatis dihitung dari `src/data/prices.ts`** (jangan diedit manual)
-- `whatsappHref` (URL + pesan ter-encode, harga otomatis mengikuti `prices.ts`)
+- `price`, `pricePerUnit`, `savings`: **otomatis dihitung dari `content/prices.yaml`** (jangan diedit manual)
+- `whatsappHref` (URL + pesan ter-encode, harga otomatis mengikuti `content/prices.yaml`)
 - `buttonLabel`
 
-### Harga — `src/data/prices.ts`
+### Harga: `content/prices.yaml`
 
-**Satu-satunya file harga.** Ubah angka `pack10` / `pack30` untuk menyesuaikan harga (lihat bagian [Mengubah Harga](#mengubah-harga)).
+**Satu-satunya file harga.** Ubah angka `pack4` / `pack10` / `pack30` untuk menyesuaikan harga (lihat bagian [Mengubah Harga](#mengubah-harga)). Bisa juga diedit lewat CMS di `/admin` (koleksi **Harga Produk**).
 
-### Kandungan gizi — `src/data/nutrition.ts`
+### Kandungan gizi: `src/data/nutrition.ts`
 
-Angka per 100 gram — Omega-3, DHA, EPA.
+Angka per 100 gram: Omega-3, DHA, EPA.
 
-### Navigasi — `src/data/navigation.ts`
+### Navigasi: `src/data/navigation.ts`
 
 Anchor link untuk header & footer.
 
@@ -183,14 +191,14 @@ Konten: logo OHMEGA (warna asli), nama produk + ukuran isi, tagline, badge NKV (
 **SVG** adalah master editabel (buka di Illustrator/Inkscape/Canva). **PNG** siap cetak 300 DPI dengan metadata ukuran fisik.  
 Setelah mengedit SVG, buat ulang PNG dengan `node scripts/generate-label.mjs`.  
 > Catatan: teks dirender dengan font fallback sistem (Helvetica/Arial) karena Nunito Sans tidak selalu ter-install; wordmark logo tetap vektor asli.  
-> Label full-bleed tanpa area bleed — saat mencetak, pastikan percetakan tidak memotong tepi (atau tambahkan margin sendiri 2–3 mm di sekitar desain).
+> Label full-bleed tanpa area bleed: saat mencetak, pastikan percetakan tidak memotong tepi (atau tambahkan margin sendiri 2–3 mm di sekitar desain).
 
 ### Metadata & SEO
 
 | Item | Lokasi |
 |------|--------|
 | Site title / description | `src/utils/seo.ts` |
-| Social preview image | `public/social-preview.png` (1200×630, dari SVG via script — lihat di bawah) |
+| Social preview image | `public/social-preview.png` (1200×630, dari SVG via script: lihat di bawah) |
 | Favicon | `public/favicon.svg` |
 | robots.txt | `public/robots.txt` |
 | Security headers | `public/_headers` |
@@ -210,12 +218,12 @@ koleksi **Harga Produk**, klik Publish. Cloudflare akan rebuild otomatis.
 
 ### Lewat teks (untuk developer)
 
-Edit **satu file**: `content/prices.yaml` — ubah angka `pack4` / `pack10`
+Edit **satu file**: `content/prices.yaml`: ubah angka `pack4` / `pack10`
 / `pack30`, lalu commit & deploy.
 
 Otomatis ikut menyesuaikan:
 - Harga per butir di kartu produk
-- Label "Hemat …" (isi 30 vs isi 10) — hanya tampil jika memang lebih hemat
+- Label "Hemat …" (isi 30 vs isi 10): hanya tampil jika memang lebih hemat
 - Pesan WhatsApp saat pemesanan
 - Tulisan "Mulai Rp… per butir" di hero & trust bar
 
@@ -294,9 +302,9 @@ Gunakan `status: draft` untuk yang masih ditulis, `published` untuk yang siap ta
 
 ### File penting untuk deployment
 
-- `public/_headers` — security headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
-- `public/robots.txt` — izinkan crawler
-- `src/pages/sitemap.xml.ts` — sitemap otomatis
+- `public/_headers`: security headers (X-Content-Type-Options, Referrer-Policy, Permissions-Policy)
+- `public/robots.txt`: izinkan crawler
+- `src/pages/sitemap.xml.ts`: sitemap otomatis
 
 ---
 
@@ -310,7 +318,7 @@ Animasi ringan via CSS + IntersectionObserver:
 - **Badge pulse**: badge produk scale in saat muncul
 - **Button micro-interactions**: hover lift + WA button glow
 
-Semua animasi non-esensial — di-nonaktifkan saat `prefers-reduced-motion: reduce`.
+Semua animasi non-esensial: di-nonaktifkan saat `prefers-reduced-motion: reduce`.
 
 ---
 
@@ -331,11 +339,11 @@ Lihat `src/icons/README.md` untuk mapping nama ikon.
 
 ## Aturan Proyek
 
-- **Tanpa emoji, emoticon, atau karakter Unicode sebagai ikon** — di seluruh codebase
-- **Tanpa data palsu** — tidak ada testimonial, rating, harga palsu, nomor sertifikat palsu, countdown, atau stok terbatas
-- **Tanpa backend** — static site murni. Pemesanan via WhatsApp
-- **Tanpa framework JS** — React, Vue, Svelte, jQuery tidak digunakan
-- **Nunito Sans** satu-satunya font — jangan import Inter atau font lain
+- **Tanpa emoji, emoticon, atau karakter Unicode sebagai ikon**: di seluruh codebase
+- **Tanpa data palsu**: tidak ada testimonial, rating, harga palsu, nomor sertifikat palsu, countdown, atau stok terbatas
+- **Tanpa backend**: static site murni. Pemesanan via WhatsApp
+- **Tanpa framework JS**: React, Vue, Svelte, jQuery tidak digunakan
+- **Nunito Sans** satu-satunya font: jangan import Inter atau font lain
 - Klaim produk harus diverifikasi dengan dokumen pendukung sebelum publikasi
 
 ---

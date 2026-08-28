@@ -17,7 +17,7 @@ export interface Product {
   buttonLabel: string;
 }
 
-/** Tabungan isi 30 dibanding isi 10 — hanya dihitung jika memang lebih hemat. */
+/** Tabungan isi 30 dibanding isi 10: hanya dihitung jika memang lebih hemat. */
 const savingsPack30 = perUnitPrice(10, prices.pack10) * 30 - prices.pack30;
 
 export const products: Product[] = [

@@ -11,7 +11,7 @@ sebagai `${base_url}/${auth_endpoint}`. Setting yang benar:
 - `base_url` = URL worker (host only, tanpa path)
 - `auth_endpoint` = path di worker (`auth` saja, tanpa leading slash)
 
-Jangan set `base_url` ke site URL — Decap akan treat worker URL sebagai
+Jangan set `base_url` ke site URL: Decap akan treat worker URL sebagai
 path (bug substring), bukan host.
 
 ```yaml

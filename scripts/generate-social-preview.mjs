@@ -11,7 +11,7 @@ const logoPath = resolve(root, 'public/logo/ohmega-logo.svg');
 const productPath = resolve(root, 'public/images/product-10.webp');
 const outPath = resolve(root, 'public/social-preview.png');
 
-// Logo OHMEGA (SVG) warna asli, di-inline sebagai data URI — librsvg tidak membaca file eksternal.
+// Logo OHMEGA (SVG) warna asli, di-inline sebagai data URI. librsvg tidak membaca file eksternal.
 const logo = readFileSync(logoPath);
 const logoUri = `data:image/svg+xml;base64,${logo.toString('base64')}`;
 
@@ -20,7 +20,7 @@ const logoUri = `data:image/svg+xml;base64,${logo.toString('base64')}`;
 let productSource = productPath;
 if (!existsSync(productSource)) {
   productSource = resolve(root, 'public/images/product-10.png');
-  console.warn('product-10.webp belum ada — jalankan dulu node scripts/generate-product-images.mjs (memakai PNG sementara).');
+  console.warn('product-10.webp belum ada. Jalankan dulu node scripts/generate-product-images.mjs (memakai PNG sementara).');
 }
 const product = await sharp(productSource)
   .resize(384, 384, { fit: 'cover' })

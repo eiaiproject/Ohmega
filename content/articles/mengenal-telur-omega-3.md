@@ -11,7 +11,7 @@ status: "published"
 
 ## Apa itu telur omega-3?
 
-Telur omega-3 adalah telur yang dihasilkan oleh ayam yang pakannya diperkaya dengan sumber omega-3 — biasanya flaxseed (biji rami), ikan, atau alga. Ayam mengubah asam lemak ini dan mengendapkannya di kuning telur.
+Telur omega-3 adalah telur yang dihasilkan oleh ayam yang pakannya diperkaya dengan sumber omega-3, biasanya flaxseed (biji rami), ikan, atau alga. Ayam mengubah asam lemak ini dan mengendapkannya di kuning telur.
 
 ## Kandungan per 100 gram
 

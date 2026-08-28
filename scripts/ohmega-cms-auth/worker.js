@@ -1,5 +1,5 @@
 /**
- * OHMEGA CMS Auth Bridge — Cloudflare Worker
+ * OHMEGA CMS Auth Bridge. Cloudflare Worker
  *
  * OAuth bridge antara Decap CMS dan GitHub.
  * Decap CMS (di /admin) akan redirect ke worker ini untuk login.

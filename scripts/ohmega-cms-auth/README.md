@@ -1,15 +1,15 @@
-# OHMEGA CMS Auth — Cloudflare Worker
+# OHMEGA CMS Auth: Cloudflare Worker
 
 Worker kecil untuk jadi OAuth bridge antara **Decap CMS** (di `ohmega.web.id/admin`)
 dan **GitHub**. Tanpa worker ini, halaman admin tidak akan bisa login.
 
 ## Isi Folder
 
-- `worker.js` — kode Worker
-- `wrangler.toml` — konfigurasi deploy + non-secret vars
-- `package.json` — metadata
-- `DEPLOY.md` — panduan deploy step-by-step
-- `CONFIGURE-DECAP.md` — cara kaitkan worker dengan Decap CMS
+- `worker.js`: kode Worker
+- `wrangler.toml`: konfigurasi deploy + non-secret vars
+- `package.json`: metadata
+- `DEPLOY.md`: panduan deploy step-by-step
+- `CONFIGURE-DECAP.md`: cara kaitkan worker dengan Decap CMS
 
 ## Ringkas
 

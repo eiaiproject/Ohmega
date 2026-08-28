@@ -20,7 +20,7 @@ bertanggung jawab memperbarui harga & konten edukasi.
 Buka <https://ohmega.web.id/admin/> di browser. Bookmark alamat ini untuk
 akses cepat.
 
-Tidak ada tombol "Login Admin" di halaman utama — sengaja, agar tidak
+Tidak ada tombol "Login Admin" di halaman utama: sengaja, agar tidak
 memancing orang coba-coba. Halaman ini juga di-`Disallow` di `robots.txt`
 sehingga tidak akan terindeks Google.
 
@@ -55,8 +55,8 @@ Ringkas:
 6. Commit & deploy. CMS siap pakai.
 
 **Opsi alternatif:** Pakai layanan OAuth publik seperti
-[silverbulletmd/decap-cms-oauth-provider](https://github.com/silverbulletmd/decap-cms-oauth-provider)
-— konfigurasi lebih lanjut di [docs Decap](https://decapcms.org/docs/external-oauth-clients/).
+[silverbulletmd/decap-cms-oauth-provider](https://github.com/silverbulletmd/decap-cms-oauth-provider).
+Konfigurasi lebih lanjut di [docs Decap](https://decapcms.org/docs/external-oauth-clients/).
 
 ### Login sebagai admin
 
@@ -70,12 +70,12 @@ Ringkas:
 1. Di dashboard, klik **Harga Produk** di sidebar.
 2. Klik kanan pada entry "Harga" → **Edit** (atau langsung klik entry-nya).
 3. Ubah angka di field:
-   - **Harga Isi 4 (Rp)** — harga per kemasan 4 butir
-   - **Harga Isi 10 (Rp)** — harga per kemasan 10 butir
-   - **Harga Isi 30 (Rp)** — harga per kemasan 30 butir
+   - **Harga Isi 4 (Rp)**: harga per kemasan 4 butir
+   - **Harga Isi 10 (Rp)**: harga per kemasan 10 butir
+   - **Harga Isi 30 (Rp)**: harga per kemasan 30 butir
 4. Klik **Publish** di kanan atas.
 5. Tunggu ~1-2 menit. Cloudflare Pages akan rebuild & deploy otomatis.
-6. Cek <https://ohmega.web.id> — harga sudah ter-update.
+6. Cek <https://ohmega.web.id>: harga sudah ter-update.
 
 **Yang ikut menyesuaikan otomatis:**
 - Harga per butir di kartu produk
@@ -90,17 +90,17 @@ Ringkas:
 
 1. Di dashboard, klik **Artikel Edukasi** → **New Article**.
 2. Isi field:
-   - **Judul** — tampil sebagai `<h1>`, misal *"5 Resep Sarapan dengan Telur Omega"*
-   - **Slug** — bagian URL: `/blog/<slug>`. Contoh: `5-resep-sarapan-telur-omega`
-   - **Tanggal Publish** — tanggal artikel
-   - **Ringkasan** — 1-2 kalimat untuk kartu & meta description
-   - **Hero Image** — gambar utama, rekomendasi 1200×630 px
-   - **Hero Image Alt** — deskripsi gambar untuk aksesibilitas
-   - **Tag** — label-topik, misal `Omega-3`, `Resep`
-   - **Status** — `draft` (belum tampil) atau `published` (langsung tampil)
-   - **SEO Title** — opsional, judul untuk Google
-   - **SEO Description** — opsional, deskripsi untuk Google
-   - **Isi Artikel** — tulis dalam Markdown
+   - **Judul**: tampil sebagai `<h1>`, misal *"5 Resep Sarapan dengan Telur Omega"*
+   - **Slug**: bagian URL: `/blog/<slug>`. Contoh: `5-resep-sarapan-telur-omega`
+   - **Tanggal Publish**: tanggal artikel
+   - **Ringkasan**: 1-2 kalimat untuk kartu & meta description
+   - **Hero Image**: gambar utama, rekomendasi 1200×630 px
+   - **Hero Image Alt**: deskripsi gambar untuk aksesibilitas
+   - **Tag**: label-topik, misal `Omega-3`, `Resep`
+   - **Status**: `draft` (belum tampil) atau `published` (langsung tampil)
+   - **SEO Title**: opsional, judul untuk Google
+   - **SEO Description**: opsional, deskripsi untuk Google
+   - **Isi Artikel**: tulis dalam Markdown
 3. Klik **Publish**.
 
 ### Mengedit artikel existing
@@ -131,22 +131,22 @@ jangan pakai `#` (sudah dipakai judul artikel).
 
 ### Harga
 
-- **Selalu update 3 harga bersamaan** — kalau hanya satu yang berubah,
+- **Selalu update 3 harga bersamaan**: kalau hanya satu yang berubah,
   perbandingan "Paling Hemat" di kemasan 30 bisa tidak akurat.
 - **Test** perubahan dengan buka <https://ohmega.web.id> setelah deploy
   selesai (cek status build di dashboard Cloudflare).
 
 ### Artikel
 
-- **Slug permanen** — setelah dipublikasikan, jangan ubah slug, karena
+- **Slug permanen**: setelah dipublikasikan, jangan ubah slug, karena
   link luar (Google, medsos) akan jadi 404. Kalau harus ganti, buat
   redirect manual di Cloudflare Pages.
-- **Hero image** — kompres dulu sebelum upload (gunakan
+- **Hero image**: kompres dulu sebelum upload (gunakan
   `scripts/generate-product-images.mjs` style atau [squoosh.app](https://squoosh.app)).
   Ukuran ideal 1200×630 px, format WebP atau JPG, maks ~200 KB.
-- **Tulis ringkasan** yang menarik — ini yang muncul di kartu, Google
+- **Tulis ringkasan** yang menarik: ini yang muncul di kartu, Google
   snippet, dan share preview.
-- **Status draft** — gunakan `draft` saat masih menulis. Ganti ke
+- **Status draft**: gunakan `draft` saat masih menulis. Ganti ke
   `published` saat siap tampil.
 
 ## Troubleshooting
@@ -168,7 +168,7 @@ jangan pakai `#` (sudah dipakai judul artikel).
 - Cek status build di dashboard Cloudflare Pages.
 - Lihat build log untuk error.
 - Kalau tidak ada error tapi tidak berubah, coba hard-refresh
-  (Ctrl+Shift+R) — CDN cache mungkin masih memegang versi lama.
+  (Ctrl+Shift+R): CDN cache mungkin masih memegang versi lama.
 
 ### Salah hapus / edit artikel
 

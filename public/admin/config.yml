@@ -62,7 +62,7 @@ collections:
     slug: "{{slug}}"
     extension: "md"
     format: "frontmatter"
-    summary: "{{title}} — {{date | date('DD MMM YYYY')}}"
+    summary: "{{title}}: {{date | date('DD MMM YYYY')}}"
     sortable_fields: ["date", "title"]
     view_filters:
       - {label: "Published", field: "status", pattern: "published"}
