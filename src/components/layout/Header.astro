@@ -8,7 +8,7 @@ import MobileMenu from './MobileMenu.astro';
 ---
 <header id="beranda" data-header class="sticky top-0 z-40 bg-cream/90 backdrop-blur border-b border-transparent h-[68px] lg:h-[76px]">
   <Container class="flex items-center justify-between h-full">
-    <a href="#beranda" class="flex items-center gap-2 min-h-[44px]" aria-label={`${site.brandName} beranda`}>
+    <a href="/" class="flex items-center gap-2 min-h-[44px]" aria-label={`${site.brandName} beranda`}>
       <img src="/logo/ohmega-logo.svg" alt={site.brandName} width="120" height="28" class="h-7 w-auto" />
     </a>
 
@@ -47,7 +47,7 @@ import MobileMenu from './MobileMenu.astro';
   const toggle = document.querySelector('[data-menu-toggle]');
   const panel = document.getElementById('mobile-menu');
   const closeBtn = panel?.querySelector('[data-menu-close]');
-  const links = panel?.querySelectorAll('a[href^="#"]');
+  const links = panel?.querySelectorAll('a[href^="/"], a[href^="#"]');
 
   function setOpen(open) {
     if (!toggle || !panel) return;
@@ -56,7 +56,7 @@ import MobileMenu from './MobileMenu.astro';
     panel.classList.toggle('hidden', !open);
     panel.classList.toggle('flex', open);
     if (open) {
-      const firstLink = panel.querySelector('a[href^="#"]');
+      const firstLink = panel.querySelector('a[href^="/"], a[href^="#"]');
       firstLink?.focus({ preventScroll: true });
     } else {
       toggle.focus({ preventScroll: true });
