@@ -12,15 +12,16 @@ import { test, expect, type Page } from '@playwright/test';
  */
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:4321';
+const ADMIN = `${BASE_URL}/admin/index.html`;
 
 test.describe('OHMEGA Admin /admin', () => {
   test('halaman admin ter-load', async ({ page }) => {
-    const resp = await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    const resp = await page.goto(ADMIN, { waitUntil: 'networkidle' });
     expect(resp?.status()).toBe(200);
   });
 
   test('script Decap CMS ter-load dari CDN', async ({ page }) => {
-    const resp = await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    const resp = await page.goto(ADMIN, { waitUntil: 'networkidle' });
     expect(resp?.status()).toBe(200);
 
     // Cek ada script tag yang mengarah ke unpkg decap-cms
@@ -37,7 +38,7 @@ test.describe('OHMEGA Admin /admin', () => {
   });
 
   test('UI Decap mount setelah script load', async ({ page }) => {
-    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN, { waitUntil: 'networkidle' });
 
     // Beri waktu script load & mount
     await page.waitForTimeout(3000);
@@ -68,20 +69,20 @@ test.describe('OHMEGA Admin theme', () => {
     const requests: string[] = [];
     page.on('request', (req) => requests.push(req.url()));
 
-    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN, { waitUntil: 'networkidle' });
 
     expect(requests.some((u) => u.endsWith('/admin/theme.css'))).toBeTruthy();
     expect(requests.some((u) => u.endsWith('/admin/branding.js'))).toBeTruthy();
   });
 
   test('favicon pakai brand', async ({ page }) => {
-    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN, { waitUntil: 'networkidle' });
     const faviconHref = await page.getAttribute('link[rel="icon"]', 'href');
     expect(faviconHref).toBe('/favicon.svg');
   });
 
   test('title halaman admin = "OHMEGA Admin"', async ({ page }) => {
-    await page.goto(`${BASE_URL}/admin/`, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN, { waitUntil: 'networkidle' });
     expect(await page.title()).toBe('OHMEGA Admin');
   });
 

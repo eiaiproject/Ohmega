@@ -41,14 +41,15 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: var(--color-soft-green-soft) !important;
+  background: var(--color-cream) !important;
   color: var(--color-text) !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── LOGIN PAGE (AuthenticationPage) ─── */
-/* Section wrapper: kasih background lebih jelas */
+/* ─── LOGIN PAGE (AuthenticationPage) — cream bg matching landing ─── */
 [class*="StyledAuthenticationPage"] {
-  background: var(--color-soft-green-soft) !important;
+  background: var(--color-cream) !important;
   padding: 3rem 2rem !important;
   border-radius: 16px !important;
   box-shadow: 0 12px 40px rgba(23, 63, 44, 0.08) !important;
@@ -81,22 +82,22 @@ html, body {
   letter-spacing: 1px !important;
 }
 
-/* Login button (default LoginButton component) */
+/* Login button (default LoginButton component) — pill shape, same as landing */
 [class*="LoginButton-button"] {
   background: var(--color-primary) !important;
   color: var(--color-cream) !important;
   border: 1px solid var(--color-primary-dark) !important;
-  border-radius: 8px !important;
-  padding: 0.75rem 1.5rem !important;
+  border-radius: 9999px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  padding: 0 1.5rem !important;
   font-weight: 700 !important;
   font-size: 0.95rem !important;
-  transition: all 0.15s ease !important;
-  box-shadow: 0 2px 8px rgba(23, 63, 44, 0.15) !important;
+  transition: background-color 150ms ease !important;
+  box-shadow: none !important;
 }
 [class*="LoginButton-button"]:hover {
   background: var(--color-primary-dark) !important;
-  box-shadow: 0 4px 16px rgba(23, 63, 44, 0.3) !important;
-  transform: translateY(-1px) !important;
 }
 [class*="LoginButton-button"]:disabled {
   background: var(--color-text-muted) !important;
@@ -105,23 +106,25 @@ html, body {
   opacity: 0.6 !important;
 }
 
-/* ─── HEADER (AppHeader) ─── */
+/* ─── HEADER (AppHeader) — cream backdrop-blur like landing ─── */
 [class*="AppHeader"] {
-  background: var(--color-primary-dark) !important;
-  color: var(--color-cream) !important;
-  border-bottom: 2px solid var(--color-yolk) !important;
+  background: rgba(255, 253, 246, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  color: var(--color-text) !important;
+  border-bottom: 1px solid var(--color-border) !important;
 }
 [class*="AppHeader"] * {
-  color: var(--color-cream) !important;
+  color: var(--color-text) !important;
 }
 [class*="AppHeader"] a,
 [class*="AppHeader"] button {
-  color: var(--color-cream) !important;
+  color: var(--color-primary) !important;
 }
 
-/* Logo brand di header: ganti icon Decap dengan brand */
+/* Logo brand di header: ganti icon Decap dengan brand — transparent bg, matching landing */
 [class*="AppHeader-logo"] {
-  background: var(--color-cream) !important;
+  background: transparent !important;
   border-radius: 6px !important;
   padding: 4px 10px !important;
   display: flex !important;
@@ -161,24 +164,36 @@ html, body {
 }
 
 /* ─── BUTTONS ─── */
-/* Primary (Publish) — Decap pakai class dengan substring "primary" */
+/* Primary (Publish) — pill shape, matching landing btn-primary */
 button[class*="primary"]:not([class*="LoginButton"]) {
   background: var(--color-primary) !important;
-  color: var(--color-cream) !important;
+  color: white !important;
   border: 1px solid var(--color-primary-dark) !important;
+  border-radius: 9999px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  padding: 0 1.5rem !important;
+  font-weight: 700 !important;
+  transition: background-color 150ms ease !important;
 }
 button[class*="primary"]:not([class*="LoginButton"]):hover {
   background: var(--color-primary-dark) !important;
 }
 
-/* Default (secondary) */
+/* Default (secondary) — pill shape, matching landing btn-secondary */
 button[class*="default"]:not([class*="LoginButton"]) {
-  background: var(--color-surface) !important;
+  background: white !important;
   color: var(--color-primary) !important;
-  border: 1px solid var(--color-border) !important;
+  border: 2px solid var(--color-primary) !important;
+  border-radius: 9999px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  padding: 0 1.5rem !important;
+  font-weight: 700 !important;
+  transition: background-color 150ms ease !important;
 }
 button[class*="default"]:not([class*="LoginButton"]):hover {
-  background: var(--color-soft-green-soft) !important;
+  background: var(--color-soft-green) !important;
   border-color: var(--color-primary) !important;
 }
 
@@ -299,7 +314,7 @@ a:hover {
   color: var(--color-primary-light) !important;
 }
 
-/* ─── SCROLLBAR (webkit) ─── */
+/* ─── SCROLLBAR (webkit + Firefox) ─── */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -313,6 +328,12 @@ a:hover {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-primary-light) var(--color-soft-green-soft);
 }
 
 /* ─── SELECTION ─── */
