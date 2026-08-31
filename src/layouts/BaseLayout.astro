@@ -114,14 +114,6 @@ const availableProducts = products.filter(p => p.status === 'available');
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); observer.unobserve(e.target); } });
       }, { threshold: 0.1 });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-      // Hidden admin shortcut: Ctrl+Shift+A → open /admin/
-      document.addEventListener('keydown', (e) => {
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-          e.preventDefault();
-          window.open('/admin/', '_blank');
-        }
-      });
     </script>
   </body>
 </html>
