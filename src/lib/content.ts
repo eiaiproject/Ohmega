@@ -1,6 +1,7 @@
 /**
- * Pusat data konten dari CMS.
- * - Harga dibaca dari `content/prices.yaml` (bisa diedit via /admin).
+ * Loader untuk prices.yaml & articles collection.
+ *
+ * - Harga dibaca dari `content/prices.yaml` (edit file lalu commit & deploy).
  * - Artikel dibaca dari `content/articles/*.md` via Astro content collections.
  */
 import { parse } from 'yaml';

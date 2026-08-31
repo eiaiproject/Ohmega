@@ -1,5 +1,5 @@
 # Harga produk OHMEGA
-# File ini yang diedit saat harga berubah. Bisa lewat /admin atau langsung di sini.
+# File ini yang diedit saat harga berubah. Commit & deploy untuk publish.
 pack4: 12000
 pack10: 29000
 pack30: 81000

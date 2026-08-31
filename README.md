@@ -5,8 +5,7 @@ Dibangun dengan [Astro](https://astro.build) + [Tailwind CSS v4](https://tailwin
 
 **[ohmega.web.id](https://ohmega.web.id)**: domain produksi.
 
-> Ingin edit harga atau tulis artikel edukasi tanpaentuh kode? Buka
-> <https://ohmega.web.id/admin/>. Panduan lengkap di [docs/admin.md](docs/admin.md).
+> Untuk edit harga atau tulis artikel edukasi, lihat bagian [Mengubah Harga](#mengubah-harga) dan [Menulis Artikel Edukasi](#menulis-artikel-edukasi) di bawah.
 
 ---
 
@@ -80,27 +79,23 @@ src/
     sitemap.xml.ts            : Sitemap endpoint (dynamic, termasuk artikel)
   utils/                      : whatsapp.ts, seo.ts
 content/
-  prices.yaml                 : Harga 3 kemasan (diedit via /admin atau teks)
+  prices.yaml                 : Harga 3 kemasan
   articles/<slug>.md          : Artikel edukasi (satu file MD per artikel)
 public/
-  admin/                      : Decap CMS (UI + config.yml)
   logo/                       : ohmega-logo.svg (wordmark + simbol telur)
   images/                     : hero.webp, product-{4,10,30}.webp (+ .png sumber), producer.webp
-  images/blog/                : Gambar hero artikel (upload via /admin)
+  images/blog/                : Gambar hero artikel
   certifications/             : nkv.svg, sig.png, halal.svg
   labels/                     : label-isi-{4,10,30}.{svg,png} (label brand cetak)
   fonts/                      : nunito-sans-{regular,semibold,bold,extrabold}.woff2
   robots.txt, _headers, social-preview.{svg,png}, favicon.svg
-docs/
-  admin.md                    : Panduan lengkap pakai /admin untuk non-developer
 scripts/
   generate-icons.mjs          : Buat SVG sprite dari paket reicon
   generate-label.mjs          : Render label cetak (PNG 300 DPI) dari SVG master
   generate-product-images.mjs : Konversi PNG ke WebP teroptimasi
   generate-social-preview.mjs : Render social-preview.png dari SVG
-  ohmega-cms-auth/            : Cloudflare Worker OAuth bridge + panduan deploy
 tests/
-  admin.spec.ts               : Playwright test untuk verifikasi /admin UI mount
+  e2e.spec.ts                 : Playwright E2E tests untuk landing & blog
 ```
 
 ---
@@ -134,7 +129,7 @@ Setiap produk memiliki:
 
 ### Harga: `content/prices.yaml`
 
-**Satu-satunya file harga.** Ubah angka `pack4` / `pack10` / `pack30` untuk menyesuaikan harga (lihat bagian [Mengubah Harga](#mengubah-harga)). Bisa juga diedit lewat CMS di `/admin` (koleksi **Harga Produk**).
+**Satu-satunya file harga.** Ubah angka `pack4` / `pack10` / `pack30` untuk menyesuaikan harga (lihat bagian [Mengubah Harga](#mengubah-harga)).
 
 ### Kandungan gizi: `src/data/nutrition.ts`
 
@@ -211,13 +206,6 @@ Setelah mengedit SVG, buat ulang PNG dengan `node scripts/generate-label.mjs`.
 
 ## Mengubah Harga
 
-### Lewat CMS (disarankan)
-
-Buka <https://ohmega.web.id/admin/>, login dengan GitHub, edit angka di
-koleksi **Harga Produk**, klik Publish. Cloudflare akan rebuild otomatis.
-
-### Lewat teks (untuk developer)
-
 Edit **satu file**: `content/prices.yaml`: ubah angka `pack4` / `pack10`
 / `pack30`, lalu commit & deploy.
 
@@ -247,14 +235,6 @@ Pesan WhatsApp untuk setiap paket diatur di `src/data/products.ts` (fungsi `waLi
 ---
 
 ## Menulis Artikel Edukasi
-
-### Lewat CMS (disarankan)
-
-Buka <https://ohmega.web.id/admin/>, login, klik **Artikel Edukasi** → **New Article**.
-Isi judul, slug, tanggal, ringkasan, hero image, tag, dan isi Markdown. Klik Publish.
-Artikel langsung tampil di <https://ohmega.web.id/blog>.
-
-### Lewat teks (untuk developer)
 
 Buat file baru di `content/articles/<slug>.md`:
 
