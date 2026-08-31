@@ -8,7 +8,7 @@ const NAV_ITEMS = ['Beranda', 'Produk', 'Kandungan', 'Pengiriman', 'Tentang'];
 const PRODUCT_IDS = ['#produk'];
 
 // ═══════════════════════════════════════════════════════════════
-//  1. LANDING PAGE — Structure & Sections
+//  1. LANDING PAGE : Structure & Sections
 // ═══════════════════════════════════════════════════════════════
 test.describe('Landing page (/)', () => {
   test.beforeEach(async ({ page }) => {
@@ -56,7 +56,7 @@ test.describe('Landing page (/)', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  2. HEADER — Navigation & WhatsApp
+//  2. HEADER : Navigation & WhatsApp
 // ═══════════════════════════════════════════════════════════════
 test.describe('Header', () => {
   test.beforeEach(async ({ page }) => {
@@ -356,7 +356,7 @@ test.describe('Footer', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  12. WHATSAPP LINKS — All buttons point to correct wa.me
+//  12. WHATSAPP LINKS : All buttons point to correct wa.me
 // ═══════════════════════════════════════════════════════════════
 test.describe('WhatsApp links integrity', () => {
   test('all WhatsApp links use correct phone number', async ({ page }) => {
@@ -392,7 +392,7 @@ test.describe('Sticky mobile CTA', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  14. BLOG — Listing page
+//  14. BLOG : Listing page
 // ═══════════════════════════════════════════════════════════════
 test.describe('Blog listing (/blog)', () => {
   test('blog page loads with correct title', async ({ page }) => {
@@ -428,7 +428,7 @@ test.describe('Blog listing (/blog)', () => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-//  15. BLOG — Article detail
+//  15. BLOG : Article detail
 // ═══════════════════════════════════════════════════════════════
 test.describe('Blog article detail', () => {
   test('first article page loads', async ({ page }) => {
