@@ -16,17 +16,17 @@ const ADMIN = `${BASE_URL}/admin/index.html`;
 
 test.describe('OHMEGA Admin /admin', () => {
   test('halaman admin ter-load', async ({ page }) => {
-    const resp = await page.goto(ADMIN, { waitUntil: 'networkidle' });
+    const resp = await page.goto(ADMIN);
     expect(resp?.status()).toBe(200);
   });
 
   test('script Decap CMS ter-load dari CDN', async ({ page }) => {
-    const resp = await page.goto(ADMIN, { waitUntil: 'networkidle' });
+    const resp = await page.goto(ADMIN);
     expect(resp?.status()).toBe(200);
 
-    // Cek ada script tag yang mengarah ke unpkg decap-cms
-    const scriptSrc = await page.getAttribute('script[src*="decap-cms"]', 'src');
-    expect(scriptSrc).toContain('decap-cms');
+    // Tunggu script Decap CMS muncul (web-first assertion)
+    const script = page.locator('script[src*="decap-cms"]');
+    await expect(script).toHaveAttribute('src', /decap-cms/);
   });
 
   test('config.yml bisa di-fetch', async ({ page }) => {
@@ -38,52 +38,42 @@ test.describe('OHMEGA Admin /admin', () => {
   });
 
   test('UI Decap mount setelah script load', async ({ page }) => {
-    await page.goto(ADMIN, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN);
 
-    // Beri waktu script load & mount
-    await page.waitForTimeout(3000);
+    // Tunggu Decap CMS benar-benar mount — salah satu dari:
+    //   - Login button muncul
+    //   - nc-app / nc-root element muncul
+    const decapReady = page.locator(
+      'button:has-text("Login with GitHub"), .nc-app, [class*="nc-"], #nc-root, .decap-cms'
+    ).first();
+    await expect(decapReady).toBeVisible({ timeout: 15_000 });
 
-    // Cek bahwa elemen Decap muncul (header dengan class nc-app atau elemen login)
-    const decapMounted = await page.evaluate(() => {
-      const bodyText = document.body.innerText.toLowerCase();
-      const hasLoginButton =
-        !!Array.from(document.querySelectorAll('button, a')).find((el) =>
-          /login with github/i.test(el.textContent || '')
-        );
-      const hasDecapElement =
-        !!document.querySelector('.nc-app, [class*="nc-"], #nc-root, .decap-cms');
-      return { hasLoginButton, hasDecapElement, bodyTextSnippet: bodyText.slice(0, 200) };
-    });
-
-    // Setidaknya satu dari dua indikator harus ada (UI sedang load atau sudah mount)
-    expect(
-      decapMounted.hasLoginButton || decapMounted.hasDecapElement
-    ).toBeTruthy();
-
-    console.log('Decap mount check:', JSON.stringify(decapMounted, null, 2));
+    const bodyText = await page.evaluate(() => document.body.innerText.toLowerCase());
+    console.log('Decap mount check — body snippet:', bodyText.slice(0, 200));
   });
 });
 
 test.describe('OHMEGA Admin theme', () => {
   test('theme.css & branding.js ter-load', async ({ page }) => {
-    const requests: string[] = [];
-    page.on('request', (req) => requests.push(req.url()));
+    const responses: string[] = [];
+    page.on('response', (res) => responses.push(res.url()));
 
-    await page.goto(ADMIN, { waitUntil: 'networkidle' });
+    await page.goto(ADMIN);
+    await page.waitForLoadState('domcontentloaded');
 
-    expect(requests.some((u) => u.endsWith('/admin/theme.css'))).toBeTruthy();
-    expect(requests.some((u) => u.endsWith('/admin/branding.js'))).toBeTruthy();
+    expect(responses.some((u) => u.endsWith('/admin/theme.css'))).toBeTruthy();
+    expect(responses.some((u) => u.endsWith('/admin/branding.js'))).toBeTruthy();
   });
 
   test('favicon pakai brand', async ({ page }) => {
-    await page.goto(ADMIN, { waitUntil: 'networkidle' });
-    const faviconHref = await page.getAttribute('link[rel="icon"]', 'href');
-    expect(faviconHref).toBe('/favicon.svg');
+    await page.goto(ADMIN);
+    const favicon = page.locator('link[rel="icon"]');
+    await expect(favicon).toHaveAttribute('href', '/favicon.svg');
   });
 
   test('title halaman admin = "OHMEGA Admin"', async ({ page }) => {
-    await page.goto(ADMIN, { waitUntil: 'networkidle' });
-    expect(await page.title()).toBe('OHMEGA Admin');
+    await page.goto(ADMIN);
+    await expect(page).toHaveTitle('OHMEGA Admin');
   });
 
   test('theme.css di-serve dengan HTTP 200 + ukuran > 1KB', async ({ page }) => {
