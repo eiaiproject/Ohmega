@@ -55,7 +55,15 @@ const availableProducts = products.filter(p => p.status === 'available');
       url: site.siteUrl,
       logo: `${site.siteUrl}/logo/ohmega-logo.svg`,
       description: seoDefaults.description,
-      areaServed: site.serviceArea,
+      areaServed: {
+        "@type": "City",
+        name: site.serviceArea,
+        containedInPlace: {
+          "@type": "AdministrativeArea",
+          name: site.addressRegion,
+          addressCountry: "ID",
+        },
+      },
       telephone: `+${site.whatsappInternational}`,
       address: {
         "@type": "PostalAddress",
@@ -65,8 +73,8 @@ const availableProducts = products.filter(p => p.status === 'available');
       },
       geo: {
         "@type": "GeoCoordinates",
-        latitude: site.deliveryAreaLat,
-        longitude: site.deliveryAreaLng,
+        latitude: site.baseLat,
+        longitude: site.baseLng,
       },
       hasOfferCatalog: {
         "@type": "OfferCatalog",

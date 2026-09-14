@@ -10,9 +10,9 @@ export interface NutritionItem {
 }
 
 export const nutrition: NutritionItem[] = [
-  { id: 'omega3', name: 'Omega-3', value: '793,1', unit: 'mg', featured: true,  icon: 'nutrition' },
+  { id: 'omega3', name: 'Omega-3', value: '793,1', unit: 'mg', featured: true,  icon: 'shield' },
   { id: 'dha',    name: 'DHA',      value: '399,8', unit: 'mg', featured: false, icon: 'nutrition' },
-  { id: 'epa',    name: 'EPA',      value: '7,9',   unit: 'mg', featured: false, icon: 'nutrition' },
+  { id: 'epa',    name: 'EPA',      value: '7,9',   unit: 'mg', featured: false, icon: 'check' },
 ];
 
 export const nutritionNote =

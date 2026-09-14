@@ -6,16 +6,16 @@ import { startingPerUnit } from '../../data/products';
 import type { IconName } from '../../icons';
 
 const items: { label: string; icon: IconName }[] = [
-  { label: `Mulai Rp${startingPerUnit.toLocaleString('id-ID')}/butir`, icon: 'check' },
+  { label: `Mulai Rp${startingPerUnit.toLocaleString('id-ID')}/butir`, icon: 'store' },
   { label: 'Omega-3, DHA, EPA', icon: 'nutrition' },
-  { label: `Antar ke rumah di ${site.serviceArea}`, icon: 'location' },
+  { label: `Zona inti diantar, luar via ojek Anda`, icon: 'location' },
 ];
 ---
 <section aria-label="Ringkasan keunggulan" class="border-y border-border bg-white">
   <Container class="py-6">
     <ul class="grid grid-cols-2 sm:grid-cols-3 gap-4">
       {items.map((i, idx) => (
-        <li class="reveal reveal-delay-{idx + 1} flex items-center gap-2.5 min-h-[44px]">
+        <li class:list={['reveal', `reveal-delay-${idx + 1}`, 'flex items-center gap-2.5 min-h-[44px]']}>
           <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-soft-green text-primary">
             <Icon name={i.icon} size={18} decorative />
           </span>

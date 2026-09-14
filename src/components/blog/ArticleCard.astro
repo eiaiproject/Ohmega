@@ -1,5 +1,4 @@
 ---
-import Icon from '../common/Icon.astro';
 import type { Article } from '../../lib/content';
 
 interface Props {
@@ -51,10 +50,9 @@ const formattedDate = date.toLocaleDateString('id-ID', {
     <p class="mt-2 text-sm text-text-muted leading-relaxed line-clamp-3">{description}</p>
     <a
       href={`/blog/${articleSlug}`}
-      class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-primary hover:gap-2.5 transition-all"
+      class="mt-4 inline-flex items-center text-sm font-bold text-primary hover:gap-2.5 transition-all"
     >
       Baca selengkapnya
-      <Icon name="arrow_right" size={16} />
     </a>
   </div>
 </article>

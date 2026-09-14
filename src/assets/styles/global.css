@@ -85,6 +85,12 @@ body { background: var(--color-cream); color: var(--color-text); font-family: va
   z-index: 50;
 }
 .skip-link:focus { transform: translateY(0); }
+.link-inline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  min-height: 44px; color: var(--color-text); font-weight: 600;
+  transition: color 150ms ease;
+}
+.link-inline:hover { color: var(--color-primary); text-decoration: underline; }
 
 .btn-primary {
   display: inline-flex; align-items: center; justify-content: center;
@@ -110,12 +116,12 @@ body { background: var(--color-cream); color: var(--color-text); font-family: va
 .btn-whatsapp {
   display: inline-flex; align-items: center; justify-content: center;
   gap: 0.5rem; border-radius: 9999px;
-  background: var(--color-whatsapp); color: white;
-  font-weight: 700;
+  background: var(--color-whatsapp); color: var(--color-primary-dark);
+  font-weight: 800;
   min-height: 44px; height: 56px; padding: 0 1.75rem;
   transition: background-color 150ms ease;
 }
-.btn-whatsapp:hover { background: #1FBA59; /* ponytail: hardcode hover variant, add --color-whatsapp-hover if multiple WA buttons */ }
+.btn-whatsapp:hover { background: #1FBA59; color: var(--color-primary-dark); /* dark text holds 4.61:1 on hover green */ }
 
 /* ── Scroll reveal ── */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }

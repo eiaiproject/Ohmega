@@ -3,12 +3,12 @@ import Button from './Button.astro';
 import { buildWhatsAppLink, messages } from '../../utils/whatsapp';
 
 interface Props {
-  source: 'hero' | 'header' | 'product_card' | 'final_cta' | 'sticky_mobile';
-  package?: 'general' | '4' | '10' | '30';
+  source: 'hero' | 'header' | 'product_card' | 'final_cta' | 'sticky_mobile' | 'delivery' | 'footer' | 'blog_article';
+  package?: 'general' | 'order' | '4' | '10' | '30';
   label?: string;
-  variant?: 'primary' | 'whatsapp';
+  variant?: 'primary' | 'whatsapp' | 'link';
   size?: 'md' | 'lg';
-  iconLeft?: 'message' | 'phone';
+  iconLeft?: 'message';
   class?: string;
 }
 
@@ -17,7 +17,7 @@ const {
 } = Astro.props;
 
 const map: Record<string, string> = {
-  general: messages.general, '4': messages.pack4, '10': messages.pack10, '30': messages.pack30,
+  general: messages.general, order: messages.order, '4': messages.pack4, '10': messages.pack10, '30': messages.pack30,
 };
 const text = label ?? 'Pesan melalui WhatsApp';
 const href = buildWhatsAppLink(map[pkg]);

@@ -15,14 +15,14 @@ import { nutrition, nutritionNote } from '../../data/nutrition';
     </div>
     <ul class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {nutrition.map(n => (
-        <li class:list={['reveal rounded-card-lg bg-white border border-border p-6 lg:p-8 shadow-card card-hover', n.featured && 'ring-2 ring-primary/10 bg-soft-green-soft']}>
-          <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-yolk-soft text-primary">
+        <li class:list={['reveal rounded-card-lg border p-6 lg:p-8', n.featured ? 'bg-primary border-primary text-white shadow-card' : 'bg-white border-border shadow-card card-hover']}>
+          <span class:list={['inline-flex h-12 w-12 items-center justify-center rounded-full', n.featured ? 'bg-white/15 text-white' : 'bg-yolk-soft text-primary']}>
             <Icon name={n.icon} size={24} decorative />
           </span>
-          <p class="mt-6 text-5xl lg:text-6xl font-extrabold text-text leading-none">
-            {n.value}<span class="text-2xl lg:text-3xl font-bold text-text-muted ml-1">{n.unit}</span>
+          <p class:list={['mt-6 text-5xl lg:text-6xl font-extrabold leading-none', n.featured ? 'text-white' : 'text-text']}>
+            {n.value}<span class:list={['text-2xl lg:text-3xl font-bold ml-1', n.featured ? 'text-soft-green' : 'text-text-muted']}>{n.unit}</span>
           </p>
-          <p class="mt-3 text-base font-bold text-text">{n.name}</p>
+          <p class:list={['mt-3 text-base font-bold', n.featured ? 'text-white' : 'text-text']}>{n.name}</p>
         </li>
       ))}
     </ul>

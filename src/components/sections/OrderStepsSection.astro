@@ -5,12 +5,13 @@ import { site } from '../../data/site';
 const steps = [
   { n: 1, title: 'Pilih Kemasan', description: 'Tentukan kemasan isi 4, 10, atau 30 yang sesuai.' },
   { n: 2, title: 'Kirim Pesan WhatsApp', description: 'Pesan telah terisi otomatis dengan format pesanan lengkap.' },
-  { n: 3, title: 'Konfirmasi & Antar', description: `Kami konfirmasi stok, alamat, ongkir, dan waktu pengiriman ke ${site.serviceArea}.` },
+  { n: 3, title: 'Konfirmasi & Terima', description: `Kami konfirmasi stok dan kesiapan, lalu tentukan: kami antar (Amartha) atau ojek Anda ambil ke titik kami.` },
 ];
 ---
 <section class="py-16 lg:py-24 bg-white border-y border-border">
   <Container>
     <div class="max-w-2xl">
+      <p class="text-sm font-extrabold uppercase tracking-wider text-primary">Pemesanan</p>
       <h2 class="mt-2 text-3xl font-extrabold leading-tight text-text sm:text-[2.5rem] text-balance">
         Cara Memesan
       </h2>
@@ -18,13 +19,13 @@ const steps = [
         Pesan OHMEGA dalam 3 langkah mudah.
       </p>
     </div>
-    <ol class="mt-12 grid gap-6 lg:grid-cols-3">
+    <ol class="mt-12 grid gap-10 lg:grid-cols-3 lg:gap-8">
       {steps.map(s => (
-        <li class="reveal rounded-card-lg border border-border bg-white p-6 lg:p-8 shadow-card card-hover">
-          <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-primary text-white text-lg font-extrabold" aria-hidden="true">
+        <li class="reveal relative border-t-2 border-primary/20 pt-6">
+          <span class="text-5xl font-extrabold text-primary/20 leading-none" aria-hidden="true">
             {s.n}
           </span>
-          <h3 class="mt-5 text-lg lg:text-xl font-extrabold text-text">{s.title}</h3>
+          <h3 class="mt-3 text-lg lg:text-xl font-extrabold text-text">{s.title}</h3>
           <p class="mt-2 text-sm text-text-muted leading-relaxed">{s.description}</p>
         </li>
       ))}

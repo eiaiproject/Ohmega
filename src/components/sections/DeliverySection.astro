@@ -6,13 +6,11 @@ import Button from '../common/Button.astro';
 import { site } from '../../data/site';
 import { buildWhatsAppLink } from '../../utils/whatsapp';
 
-const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
-  + site.deliveryAreaLng + '!3d' + site.deliveryAreaLat
-  + '!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwMjcnMzAuNyJTIDExMsKwNDEnMTkuOCJF!5e0!3m2!1sid!2sid!4v1';
+const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.0573452603685!2d112.68800267540239!3d-7.458908492552493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7e1b36275b4a9%3A0x1a95970a0db62903!2sAmartha%20Safira%20Sidoarjo!5e0!3m2!1sen!2sid!4v1789368585678!5m2!1sen!2sid';
 ---
 <section id="pengiriman" class="py-16 lg:py-24 bg-white border-y border-border">
   <Container>
-    <SectionHeading title="Layanan Pengiriman" description="Nikmati layanan antar langsung ke rumah Anda." />
+    <SectionHeading title="Cara Terima Pesanan" description="Amartha Safira kami antar gratis. Luar itu, ojek yang Anda pesan ambil ke titik kami agar telur cepat sampai dan aman." />
     <div class="mt-12 grid gap-8 lg:grid-cols-2">
       <div class="space-y-6">
         <article class="reveal rounded-card-lg border border-border p-6 lg:p-8 bg-white shadow-card flex gap-5 card-hover">
@@ -20,9 +18,9 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
             <Icon name="location" size={28} decorative />
           </span>
           <div>
-            <h3 class="text-lg font-extrabold text-text">Gratis Antar</h3>
+            <h3 class="text-lg font-extrabold text-text">Amartha Safira: Kami Antar Gratis</h3>
             <p class="mt-2 text-sm text-text-muted leading-relaxed">
-              Gratis antar untuk pemesanan di <strong class="text-text">{site.deliveryFreeArea}</strong>, Sidoarjo.
+              Untuk pemesanan di <strong class="text-text">{site.freeZones.join(', ')}</strong>, {site.serviceArea}, kami antar tanpa ongkir.
             </p>
           </div>
         </article>
@@ -31,51 +29,60 @@ const mapSrc = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.5!2d'
             <Icon name="truck" size={28} decorative />
           </span>
           <div>
-            <h3 class="text-lg font-extrabold text-text">Area {site.serviceArea} Lainnya</h3>
+            <h3 class="text-lg font-extrabold text-text">Luar Zona: Ojek yang Anda Pesan</h3>
             <p class="mt-2 text-sm text-text-muted leading-relaxed">
-              Untuk pengiriman di luar <strong class="text-text">{site.deliveryFreeArea}</strong>, biaya dan jadwal dikonfirmasi melalui WhatsApp.
+              Di luar <strong class="text-text">{site.freeZones.join(', ')}</strong>, Anda pesan ojek (instan/same-day) ke titik ambil kami. Kami siapkan telur rapi agar aman dibawa. Ongkir ojek Anda yang tanggung.
             </p>
           </div>
         </article>
+        <ul class="reveal rounded-card-lg border border-border p-6 lg:p-8 bg-soft-green-soft text-sm text-text-muted leading-relaxed space-y-2 list-disc pl-10">
+          <li>{site.deliveryPromise}</li>
+          <li>{site.deliveryNote}</li>
+          <li>Di luar {site.serviceArea}? Sapa kami via WhatsApp dulu, kami info titik ambil dan kesiapan.</li>
+        </ul>
         <div class="flex flex-col sm:flex-row gap-3 pt-2">
           <Button
-            href={buildWhatsAppLink('Halo OHMEGA, saya ingin menanyakan pengiriman telur omega ke wilayah ' + site.serviceArea + '. Mohon informasinya.')}
+            href={buildWhatsAppLink('Halo OHMEGA, saya ingin menanyakan cara terima telur omega (diantar Amartha / ojek saya). Mohon informasinya.')}
             variant="whatsapp"
             size="md"
             iconLeft="message"
             external
-            ariaLabel="Tanya pengiriman melalui WhatsApp"
+            ariaLabel="Tanya cara terima via WhatsApp"
             data-track="whatsapp_click"
             data-source="delivery"
             data-package="general"
           >
-            Tanya Pengiriman
+            Tanya Cara Terima
           </Button>
           <Button
-            href={'https://www.google.com/maps/dir/?api=1&destination=' + site.deliveryAreaLat + ',' + site.deliveryAreaLng}
+            href={'https://www.google.com/maps/dir/?api=1&destination=' + site.baseLat + ',' + site.baseLng}
             variant="secondary"
             size="md"
             iconRight="external_link"
             external
-            ariaLabel="Buka petunjuk arah ke Perumahan Amartha Safira di Google Maps"
+            ariaLabel={`Buka petunjuk arah ke ${site.baseName} di Google Maps`}
           >
             Buka Petunjuk Arah
           </Button>
         </div>
         <p class="text-sm text-text-muted">
-          Pemesanan, stok, dan jadwal pengiriman dikonfirmasi melalui WhatsApp.
+          Pemesanan, stok, dan kesiapan dikonfirmasi via WhatsApp. Di luar zona gratis, pelanggan memesan ojek sendiri.
         </p>
       </div>
-      <div class="rounded-card-lg overflow-hidden shadow-card border border-border h-[320px] lg:h-full min-h-[280px] bg-soft-green relative">
-        <iframe
-          title="Peta area layanan OHMEGA di Sidoarjo"
-          src={mapSrc}
-          width="100%" height="100%"
-          style="border:0;"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          class="absolute inset-0 w-full h-full"
-        ></iframe>
+      <div>
+        <div class="rounded-card-lg overflow-hidden shadow-card border border-border h-[320px] lg:h-full min-h-[280px] bg-soft-green relative">
+          <iframe
+            title="Peta titik ambil OHMEGA di Amartha Safira Sidoarjo"
+            src={mapSrc}
+            width="100%" height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            class="absolute inset-0 w-full h-full"
+          ></iframe>
+        </div>
+        <p class="mt-4 text-sm text-text-muted text-center">Titik ambil: Amartha Safira Sidoarjo (<a class="font-semibold text-primary underline underline-offset-2" href="https://www.google.com/maps/dir/?api=1&destination=-7.458908492552493,112.68800267540239" target="_blank" rel="noopener noreferrer">buka petunjuk arah</a>). Amartha Safira kami antar; {site.serviceArea} lainnya via ojek yang Anda pesan.</p>
       </div>
     </div>
   </Container>

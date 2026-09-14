@@ -12,10 +12,10 @@ import { startingPerUnit } from '../../data/products';
       <div class="hero-content">
         <p class="text-sm font-extrabold uppercase tracking-wider text-primary">Telur Omega di {site.serviceArea}</p>
         <h1 class="mt-3 text-[clamp(2rem,5vw+0.5rem,3.75rem)] font-extrabold leading-[1.08] text-text text-balance">
-          Telur Omega, Diantar Langsung ke Rumah
+          Telur Omega Segar dari {site.serviceArea}
         </h1>
         <p class="mt-4 text-base lg:text-lg text-text-muted leading-relaxed max-w-xl">
-          Telur dengan kandungan Omega-3, DHA, dan EPA untuk sajian keluarga sehari-hari, diantar langsung ke rumah Anda di {site.serviceArea}.
+          Telur dengan kandungan Omega-3, DHA, dan EPA untuk keluarga di {site.serviceArea}. Pesan via WhatsApp, terima via ojek Anda atau antar gratis zona inti.
         </p>
         <p class="mt-5 text-2xl lg:text-3xl font-extrabold text-primary">
           Mulai Rp{startingPerUnit.toLocaleString('id-ID')} per butir
@@ -27,7 +27,7 @@ import { startingPerUnit } from '../../data/products';
         <ul class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-text-muted">
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
-            Gratis antar di area terpilih
+            <span>Zona inti kami antar, luar via <a href="#pengiriman" class="font-semibold text-primary underline underline-offset-2">ojek Anda</a></span>
           </li>
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />

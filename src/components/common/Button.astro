@@ -4,7 +4,7 @@ import type { IconName } from '../../icons';
 
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'whatsapp';
+  variant?: 'primary' | 'secondary' | 'whatsapp' | 'link';
   size?: 'md' | 'lg';
   iconLeft?: IconName;
   iconRight?: IconName;
@@ -22,9 +22,9 @@ const {
 } = Astro.props;
 
 const btnMap: Record<string, string> = {
-  primary: 'btn-primary', secondary: 'btn-secondary', whatsapp: 'btn-whatsapp',
+  primary: 'btn-primary', secondary: 'btn-secondary', whatsapp: 'btn-whatsapp', link: 'link-inline',
 };
-const btnCls = `${btnMap[variant]} ${size === 'lg' ? 'h-[56px] px-7 text-base' : 'h-[52px] px-6 text-base'}`;
+const btnCls = variant === 'link' ? btnMap[variant] : `${btnMap[variant]} ${size === 'lg' ? 'h-[56px] px-7 text-base' : 'h-[52px] px-6 text-base'}`;
 
 const Tag = href ? 'a' : 'button';
 const linkProps = href

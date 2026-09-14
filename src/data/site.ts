@@ -18,12 +18,13 @@ export const site = {
   ogImageVersion: 4,
   favicon: '/favicon.svg',
   addressRegion: 'Jawa Timur',
-  // Delivery
-  deliveryArea: 'Perumahan Amartha Safira',
-  deliveryAreaLat: -7.458541,
-  deliveryAreaLng: 112.688837,
-  deliveryFreeArea: 'Perumahan Amartha Safira',
-  deliveryNote: 'Stok dan waktu pengiriman dikonfirmasi melalui WhatsApp.',
+  // Skema terima: Amartha kami antar gratis; luar itu ambil via ojek yang dipesan pelanggan.
+  baseName: 'Perumahan Amartha Safira',
+  baseLat: -7.458908492552493,
+  baseLng: 112.68800267540239,
+  freeZones: ['Perumahan Amartha Safira'],
+  deliveryPromise: 'Amartha Safira kami antar gratis; luar itu ambil via ojek yang Anda pesan agar cepat sampai dan aman.',
+  deliveryNote: 'Stok dan kesiapan dikonfirmasi via WhatsApp; ongkir ojek luar zona ditanggung pelanggan.',
 } as const;
 
 export type Site = typeof site;

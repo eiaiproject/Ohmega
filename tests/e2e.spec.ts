@@ -4,7 +4,7 @@ const BASE = process.env.BASE_URL || 'http://localhost:4321';
 
 // ─── Data references ───────────────────────────────────────────
 const WA_NUMBER = '6285111331269';
-const NAV_ITEMS = ['Beranda', 'Produk', 'Kandungan', 'Pengiriman', 'Tentang'];
+const NAV_ITEMS = ['Beranda', 'Produk', 'Kandungan', 'Cara Terima', 'Tentang', 'Blog'];
 const PRODUCT_IDS = ['#produk'];
 
 // ═══════════════════════════════════════════════════════════════
@@ -63,8 +63,8 @@ test.describe('Header', () => {
     await page.goto(BASE);
   });
 
-  test('logo links to beranda', async ({ page }) => {
-    const logo = page.locator('header a[href="#beranda"]').first();
+  test('logo links to home', async ({ page }) => {
+    const logo = page.locator('header a[href="/"]').first();
     await expect(logo).toBeVisible();
   });
 
@@ -75,13 +75,14 @@ test.describe('Header', () => {
     }
   });
 
-  test('navigation links point to correct anchors', async ({ page }) => {
+  test('navigation links point to correct targets', async ({ page }) => {
     const nav = page.locator('header nav');
-    await expect(nav.locator('a[href="#beranda"]')).toHaveCount(1);
-    await expect(nav.locator('a[href="#produk"]')).toHaveCount(1);
-    await expect(nav.locator('a[href="#kandungan"]')).toHaveCount(1);
-    await expect(nav.locator('a[href="#pengiriman"]')).toHaveCount(1);
-    await expect(nav.locator('a[href="#tentang"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#beranda"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#produk"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#kandungan"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#pengiriman"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#tentang"]')).toHaveCount(1);
+    await expect(nav.locator('a[href="/#blog"]')).toHaveCount(1);
   });
 
   test('WhatsApp button in header links to wa.me', async ({ page }) => {
@@ -128,7 +129,8 @@ test.describe('Hero section', () => {
 
   test('hero checklist items visible', async ({ page }) => {
     const heroList = page.locator('section').first().locator('ul');
-    await expect(heroList.locator('text=Gratis antar')).toBeVisible();
+    await expect(heroList.locator('text=Zona inti kami antar')).toBeVisible();
+    await expect(heroList.locator('a[href="#pengiriman"]:has-text("ojek Anda")')).toBeVisible();
     await expect(heroList.locator('text=Kaya Protein')).toBeVisible();
   });
 
@@ -226,10 +228,10 @@ test.describe('Delivery section', () => {
     await page.goto(BASE);
   });
 
-  test('delivery section visible', async ({ page }) => {
+  test('pickup section visible', async ({ page }) => {
     const section = page.locator('#pengiriman');
     await expect(section).toBeVisible();
-    await expect(section.locator('h2')).toContainText('Pengiriman');
+    await expect(section.locator('h2')).toContainText('Cara Terima');
   });
 
   test('has Google Maps embed', async ({ page }) => {
@@ -237,16 +239,23 @@ test.describe('Delivery section', () => {
     await expect(iframe).toHaveCount(1);
   });
 
-  test('"Tanya Pengiriman" WhatsApp button works', async ({ page }) => {
+  test('"Tanya Cara Terima" WhatsApp button works', async ({ page }) => {
     const btn = page.locator('#pengiriman a[href*="wa.me"]').first();
     await expect(btn).toBeVisible();
-    await expect(btn).toContainText('Tanya Pengiriman');
+    await expect(btn).toContainText('Tanya Cara Terima');
   });
 
   test('"Buka Petunjuk Arah" links to Google Maps', async ({ page }) => {
     const btn = page.locator('#pengiriman a[href*="google.com/maps"]');
     await expect(btn).toBeVisible();
     await expect(btn).toContainText('Petunjuk Arah');
+  });
+  test('hybrid: Amartha free, others via customer ojek', async ({ page }) => {
+    const section = page.locator('#pengiriman');
+    await expect(section).toContainText('Perumahan Amartha Safira');
+    await expect(section).toContainText('Ojek yang Anda Pesan');
+    await expect(section).toContainText('memesan ojek sendiri');
+    await expect(section).toContainText('Titik ambil');
   });
 });
 
@@ -278,7 +287,7 @@ test.describe('Order steps section', () => {
     await page.goto(BASE);
     await expect(page.locator('ol li')).toHaveCount(3);
     await expect(page.locator('text=Kirim Pesan WhatsApp')).toBeVisible();
-    await expect(page.locator('text=Konfirmasi & Antar')).toBeVisible();
+    await expect(page.locator('text=Konfirmasi & Terima')).toBeVisible();
   });
 });
 
@@ -352,6 +361,9 @@ test.describe('Footer', () => {
 
   test('copyright year current', async ({ page }) => {
     await expect(page.locator('footer')).toContainText('2026');
+  });
+  test('footer positions business in Sidoarjo', async ({ page }) => {
+    await expect(page.locator('footer')).toContainText('Berbasis di Sidoarjo');
   });
 });
 

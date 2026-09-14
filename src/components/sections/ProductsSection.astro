@@ -13,12 +13,19 @@ const available = products.filter(p => p.status === 'available');
         Pilih Kemasan Sesuai Kebutuhan
       </h2>
       <p class="mt-4 text-base leading-relaxed text-text-muted sm:text-lg">
-        OHMEGA tersedia dalam pilihan isi 4, 10, dan 30. Pesan sekarang untuk layanan antar ke rumah.
+        OHMEGA tersedia dalam pilihan isi 4, 10, dan 30. Pesan via WhatsApp, tentukan cara terima yang paling cepat.
       </p>
     </div>
 
-    <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {available.map((p, i) => <li class="reveal reveal-delay-{i + 1}"><ProductCard product={p} /></li>)}
-    </ul>
+    {available.length > 0 ? (
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {available.map((p, i) => <li class:list={['reveal', `reveal-delay-${i + 1}`, 'h-full']}><ProductCard product={p} /></li>)}
+      </ul>
+    ) : (
+      <div class="mt-12 rounded-card-lg border border-border bg-soft-green-soft p-8 text-center">
+        <p class="text-lg font-extrabold text-text">Stok sedang disiapkan</p>
+        <p class="mt-2 text-sm text-text-muted">Semua kemasan habis untuk saat ini. Hubungi kami melalui WhatsApp untuk info ketersediaan.</p>
+      </div>
+    )}
   </Container>
 </section>
