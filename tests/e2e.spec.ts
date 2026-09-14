@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import type { Page } from '@playwright/test';
 
 const BASE = process.env.BASE_URL || 'http://localhost:4321';
 
@@ -6,6 +7,14 @@ const BASE = process.env.BASE_URL || 'http://localhost:4321';
 const WA_NUMBER = '6285111331269';
 const NAV_ITEMS = ['Beranda', 'Produk', 'Kandungan', 'Cara Terima', 'Tentang', 'Blog'];
 const PRODUCT_IDS = ['#produk'];
+
+async function gotoFirstArticle(page: Page): Promise<string> {
+  await page.goto(`${BASE}/blog`);
+  const href = await page.locator('a[href^="/blog/"]').first().getAttribute('href');
+  if (!href) throw new Error('No article link found on /blog');
+  await page.goto(`${BASE}${href}`);
+  return href;
+}
 
 // ═══════════════════════════════════════════════════════════════
 //  1. LANDING PAGE : Structure & Sections
@@ -444,41 +453,24 @@ test.describe('Blog listing (/blog)', () => {
 // ═══════════════════════════════════════════════════════════════
 test.describe('Blog article detail', () => {
   test('first article page loads', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const firstLink = page.locator('a[href^="/blog/"]').first();
-    const href = await firstLink.getAttribute('href');
-    expect(href).toBeTruthy();
-
-    await page.goto(`${BASE}${href}`);
+    await gotoFirstArticle(page);
     await expect(page.locator('main h1')).toBeVisible();
   });
 
   test('article has "Kembali ke daftar artikel" link', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const firstLink = page.locator('a[href^="/blog/"]').first();
-    const href = await firstLink.getAttribute('href');
-
-    await page.goto(`${BASE}${href}`);
+    await gotoFirstArticle(page);
     const backLink = page.locator('a[href="/blog"]');
     await expect(backLink).toBeVisible();
   });
 
   test('article has WhatsApp CTA at bottom', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const firstLink = page.locator('a[href^="/blog/"]').first();
-    const href = await firstLink.getAttribute('href');
-
-    await page.goto(`${BASE}${href}`);
+    await gotoFirstArticle(page);
     const waBtn = page.locator('a[href*="wa.me"]');
     await expect(waBtn.first()).toBeVisible();
   });
 
   test('article has JSON-LD BlogPosting schema', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const firstLink = page.locator('a[href^="/blog/"]').first();
-    const href = await firstLink.getAttribute('href');
-
-    await page.goto(`${BASE}${href}`);
+    await gotoFirstArticle(page);
     const jsonLd = page.locator('script[type="application/ld+json"]');
     const content = await jsonLd.textContent();
     expect(content).toContain('BlogPosting');
@@ -585,7 +577,8 @@ test.describe('Images', () => {
     });
 
     await page.goto(BASE);
-    await page.waitForLoadState('networkidle');
+    await expect(page.locator('section').first().locator('img[src="/images/hero.webp"]')).toBeVisible();
+    await expect(page.locator('#produk article').first()).toBeVisible();
 
     expect(failedImages).toEqual([]);
   });
