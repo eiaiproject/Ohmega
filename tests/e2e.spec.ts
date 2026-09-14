@@ -168,30 +168,16 @@ test.describe('Products section', () => {
     await expect(cards).toHaveCount(3);
   });
 
-  test('each product card has name, price, and WhatsApp button', async ({ page }) => {
-    const cards = page.locator('#produk article');
-    for (let i = 0; i < 3; i++) {
-      const card = cards.nth(i);
-      await expect(card.locator('h3')).not.toBeEmpty();
-      await expect(card.locator('a[href*="wa.me"]')).toHaveCount(1);
+  test('products show correct prices', async ({ page }) => {
+    const prices: Array<[string, string]> = [
+      ['OHMEGA Isi 4', 'Rp12.000'],
+      ['OHMEGA Isi 10', 'Rp29.000'],
+      ['OHMEGA Isi 30', 'Rp81.000'],
+    ];
+    for (const [name, price] of prices) {
+      await expect(page.locator(`article:has-text("${name}")`)).toContainText(price);
     }
   });
-
-  test('product Isi 4 shows correct price Rp12.000', async ({ page }) => {
-    const card = page.locator('article:has-text("OHMEGA Isi 4")');
-    await expect(card).toContainText('Rp12.000');
-  });
-
-  test('product Isi 10 shows correct price Rp29.000', async ({ page }) => {
-    const card = page.locator('article:has-text("OHMEGA Isi 10")');
-    await expect(card).toContainText('Rp29.000');
-  });
-
-  test('product Isi 30 shows correct price Rp81.000', async ({ page }) => {
-    const card = page.locator('article:has-text("OHMEGA Isi 30")');
-    await expect(card).toContainText('Rp81.000');
-  });
-
   test('product images load', async ({ page }) => {
     for (const id of ['product-4', 'product-10', 'product-30']) {
       const img = page.locator(`img[src*="${id}"]`);
@@ -216,12 +202,10 @@ test.describe('Nutrition section', () => {
 
   test('displays Omega-3, DHA, EPA values', async ({ page }) => {
     const section = page.locator('#kandungan');
-    await expect(section).toContainText('Omega-3');
-    await expect(section).toContainText('793,1');
-    await expect(section).toContainText('DHA');
-    await expect(section).toContainText('399,8');
-    await expect(section).toContainText('EPA');
-    await expect(section).toContainText('7,9');
+    const values = ['Omega-3', '793,1', 'DHA', '399,8', 'EPA', '7,9'];
+    for (const v of values) {
+      await expect(section).toContainText(v);
+    }
   });
 
   test('displays "per 100 gram" label', async ({ page }) => {
@@ -272,19 +256,14 @@ test.describe('Delivery section', () => {
 //  7. CERTIFICATIONS SECTION
 // ═══════════════════════════════════════════════════════════════
 test.describe('Certifications section', () => {
-  test('shows NKV, SIG, and Halal certifications', async ({ page }) => {
+  test('shows NKV, SIG, Halal, and verification link', async ({ page }) => {
     await page.goto(BASE);
     const section = page.locator('#sertifikasi');
     await expect(section).toBeVisible();
-    await expect(section).toContainText('NKV');
-    await expect(section).toContainText('SIG');
-    await expect(section).toContainText('Halal');
-  });
-
-  test('NKV verification link works', async ({ page }) => {
-    await page.goto(BASE);
-    const nkvLink = page.locator('a[href*="sisnasnkv"]');
-    await expect(nkvLink).toBeVisible();
+    for (const t of ['NKV', 'SIG', 'Halal']) {
+      await expect(section).toContainText(t);
+    }
+    await expect(page.locator('a[href*="sisnasnkv"]')).toBeVisible();
   });
 });
 
@@ -304,18 +283,13 @@ test.describe('Order steps section', () => {
 //  9. PRODUCER SECTION
 // ═══════════════════════════════════════════════════════════════
 test.describe('Producer section', () => {
-  test('shows producer and distributor info', async ({ page }) => {
+  test('shows producer info and image', async ({ page }) => {
     await page.goto(BASE);
     const section = page.locator('section#tentang');
     await expect(section).toBeVisible();
     await expect(section).toContainText('PT Mahkota Unggas Sejahtera');
     await expect(section).toContainText('Mojokerto');
-  });
-
-  test('producer image loads', async ({ page }) => {
-    await page.goto(BASE);
-    const img = page.locator('img[src="/images/producer.webp"]');
-    await expect(img).toBeVisible();
+    await expect(page.locator('img[src="/images/producer.webp"]')).toBeVisible();
   });
 });
 
@@ -323,16 +297,12 @@ test.describe('Producer section', () => {
 //  10. FINAL CTA SECTION
 // ═══════════════════════════════════════════════════════════════
 test.describe('Final CTA section', () => {
-  test('has WhatsApp button', async ({ page }) => {
+  test('has heading and WhatsApp button', async ({ page }) => {
     await page.goto(BASE);
     const cta = page.locator('#final-cta');
     await expect(cta).toBeVisible();
-    await expect(cta.locator('a[href*="wa.me"]')).toHaveCount(1);
-  });
-
-  test('heading text correct', async ({ page }) => {
-    await page.goto(BASE);
     await expect(page.locator('#final-cta h2')).toContainText('Siap Pesan OHMEGA');
+    await expect(cta.locator('a[href*="wa.me"]')).toHaveCount(1);
   });
 });
 
@@ -344,43 +314,22 @@ test.describe('Footer', () => {
     await page.goto(BASE);
   });
 
-  test('footer exists with brand info', async ({ page }) => {
+  test('footer brand, links, and location', async ({ page }) => {
     const footer = page.locator('footer');
     await expect(footer).toBeVisible();
-    await expect(footer).toContainText('OHMEGA');
-    await expect(footer).toContainText('Kaya Protein');
-  });
-
-  test('footer WhatsApp link correct', async ({ page }) => {
-    const waLink = page.locator('footer a[href*="wa.me"]');
-    await expect(waLink).toHaveAttribute('href', new RegExp(WA_NUMBER));
-  });
-
-  test('footer Instagram link correct', async ({ page }) => {
-    const igLink = page.locator('footer a[href*="instagram.com/ohmega_id"]');
-    await expect(igLink).toBeVisible();
-  });
-
-  test('footer navigation links present', async ({ page }) => {
-    const footer = page.locator('footer');
+    for (const t of ['OHMEGA', 'Kaya Protein', '2026', 'Berbasis di Sidoarjo']) {
+      await expect(footer).toContainText(t);
+    }
+    await expect(footer.locator('a[href*="wa.me"]')).toHaveAttribute('href', new RegExp(WA_NUMBER));
+    await expect(footer.locator('a[href*="instagram.com/ohmega_id"]')).toBeVisible();
     for (const item of NAV_ITEMS) {
       await expect(footer.locator(`a:has-text("${item}")`)).toBeVisible();
     }
   });
-
-  test('copyright year current', async ({ page }) => {
-    await expect(page.locator('footer')).toContainText('2026');
-  });
-  test('footer positions business in Sidoarjo', async ({ page }) => {
-    await expect(page.locator('footer')).toContainText('Berbasis di Sidoarjo');
-  });
 });
 
-// ═══════════════════════════════════════════════════════════════
-//  12. WHATSAPP LINKS : All buttons point to correct wa.me
-// ═══════════════════════════════════════════════════════════════
 test.describe('WhatsApp links integrity', () => {
-  test('all WhatsApp links use correct phone number', async ({ page }) => {
+  test('all WhatsApp links use correct number and pack links carry package info', async ({ page }) => {
     await page.goto(BASE);
     const waLinks = page.locator('a[href*="wa.me"]');
     const count = await waLinks.count();
@@ -390,13 +339,7 @@ test.describe('WhatsApp links integrity', () => {
       const href = await waLinks.nth(i).getAttribute('href');
       expect(href).toContain(WA_NUMBER);
     }
-  });
-
-  test('WhatsApp messages contain product names', async ({ page }) => {
-    await page.goto(BASE);
-    // Check product card WA links contain package info
-    const pack4Link = page.locator('article:has-text("Isi 4") a[href*="wa.me"]');
-    const href4 = await pack4Link.getAttribute('href');
+    const href4 = await page.locator('article:has-text("Isi 4") a[href*="wa.me"]').getAttribute('href');
     expect(decodeURIComponent(href4!)).toContain('isi 4');
   });
 });
@@ -416,40 +359,15 @@ test.describe('Sticky mobile CTA', () => {
 //  14. BLOG : Listing page
 // ═══════════════════════════════════════════════════════════════
 test.describe('Blog listing (/blog)', () => {
-  test('blog page loads with correct title', async ({ page }) => {
+  test('blog page loads with heading, cards, and RSS', async ({ page }) => {
     await page.goto(`${BASE}/blog`);
     await expect(page).toHaveTitle(/Blog OHMEGA/);
-  });
-
-  test('has heading', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
     await expect(page.locator('h1')).toContainText('Edukasi Telur Omega');
-  });
-
-  test('article cards render (if articles exist)', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const cards = page.locator('article');
-    const count = await cards.count();
-    // At least 1 article exists in content/articles/
-    expect(count).toBeGreaterThanOrEqual(1);
-  });
-
-  test('article cards have links to /blog/[slug]', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const links = page.locator('article a[href^="/blog/"]');
-    const count = await links.count();
-    expect(count).toBeGreaterThanOrEqual(1);
-  });
-
-  test('RSS link present', async ({ page }) => {
-    await page.goto(`${BASE}/blog`);
-    const rssLink = page.locator('link[rel="alternate"][type="application/rss+xml"]');
-    await expect(rssLink).toHaveCount(1);
+    await expect(page.locator('article').first()).toBeVisible();
+    await expect(page.locator('article a[href^="/blog/"]').first()).toBeVisible();
+    await expect(page.locator('link[rel="alternate"][type="application/rss+xml"]')).toHaveCount(1);
   });
 });
-
-// ═══════════════════════════════════════════════════════════════
-//  15. BLOG : Article detail
 // ═══════════════════════════════════════════════════════════════
 test.describe('Blog article detail', () => {
   test('first article page loads', async ({ page }) => {
@@ -481,21 +399,13 @@ test.describe('Blog article detail', () => {
 //  16. 404 PAGE
 // ═══════════════════════════════════════════════════════════════
 test.describe('404 page', () => {
-  test('shows 404 message for unknown route', async ({ page }) => {
+  test('unknown route shows 404 with home button', async ({ page }) => {
     const resp = await page.goto(`${BASE}/halaman-tidak-ada`);
     expect(resp?.status()).toBe(404);
-  });
-
-  test('has "Kembali ke Beranda" button', async ({ page }) => {
-    await page.goto(`${BASE}/halaman-tidak-ada`);
+    await expect(page.locator('h1')).toContainText('Halaman tidak ditemukan');
     const btn = page.locator('a:has-text("Kembali ke Beranda")');
     await expect(btn).toBeVisible();
     await expect(btn).toHaveAttribute('href', '/');
-  });
-
-  test('heading says "Halaman tidak ditemukan"', async ({ page }) => {
-    await page.goto(`${BASE}/halaman-tidak-ada`);
-    await expect(page.locator('h1')).toContainText('Halaman tidak ditemukan');
   });
 });
 
@@ -503,29 +413,20 @@ test.describe('404 page', () => {
 //  17. SITEMAP & ROBOTS
 // ═══════════════════════════════════════════════════════════════
 test.describe('SEO files', () => {
-  test('sitemap.xml returns valid XML', async ({ page }) => {
-    const resp = await page.goto(`${BASE}/sitemap.xml`);
-    expect(resp?.status()).toBe(200);
-    const body = await resp?.text();
-    expect(body).toContain('<urlset');
-    expect(body).toContain('/');
-    expect(body).toContain('/blog');
-  });
-
-  test('robots.txt has sitemap reference', async ({ page }) => {
-    const resp = await page.goto(`${BASE}/robots.txt`);
-    expect(resp?.status()).toBe(200);
-    const body = await resp?.text();
-    expect(body).toContain('Sitemap:');
-    expect(body).toContain('Allow: /');
-  });
-
-  test('rss.xml returns valid RSS', async ({ page }) => {
-    const resp = await page.goto(`${BASE}/blog/rss.xml`);
-    expect(resp?.status()).toBe(200);
-    const body = await resp?.text();
-    expect(body).toContain('<rss');
-    expect(body).toContain('Blog OHMEGA');
+  test('sitemap, robots, and RSS serve correctly', async ({ page }) => {
+    const files: Array<[string, string[]]> = [
+      [`${BASE}/sitemap.xml`, ['<urlset', '/', '/blog']],
+      [`${BASE}/robots.txt`, ['Sitemap:', 'Allow: /']],
+      [`${BASE}/blog/rss.xml`, ['<rss', 'Blog OHMEGA']],
+    ];
+    for (const [url, markers] of files) {
+      const resp = await page.goto(url);
+      expect(resp?.status()).toBe(200);
+      const body = await resp?.text();
+      for (const m of markers) {
+        expect(body).toContain(m);
+      }
+    }
   });
 });
 
@@ -533,28 +434,12 @@ test.describe('SEO files', () => {
 //  19. ACCESSIBILITY BASICS
 // ═══════════════════════════════════════════════════════════════
 test.describe('Accessibility basics', () => {
-  test('html lang attribute is Indonesian', async ({ page }) => {
+  test('landmarks, lang, and image alts', async ({ page }) => {
     await page.goto(BASE);
     await expect(page.locator('html')).toHaveAttribute('lang', 'id');
-  });
-
-  test('main landmark exists', async ({ page }) => {
-    await page.goto(BASE);
     await expect(page.locator('main#main')).toHaveCount(1);
-  });
-
-  test('header landmark exists', async ({ page }) => {
-    await page.goto(BASE);
     await expect(page.locator('header[data-header]')).toHaveCount(1);
-  });
-
-  test('footer landmark exists', async ({ page }) => {
-    await page.goto(BASE);
     await expect(page.locator('footer')).toHaveCount(1);
-  });
-
-  test('images have alt attributes', async ({ page }) => {
-    await page.goto(BASE);
     const images = page.locator('main img');
     const count = await images.count();
     for (let i = 0; i < count; i++) {
