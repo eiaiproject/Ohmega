@@ -15,19 +15,19 @@ import { startingPerUnit } from '../../data/products';
           Telur Omega Segar dari {site.serviceArea}
         </h1>
         <p class="mt-4 text-base lg:text-lg text-text-muted leading-relaxed max-w-xl">
-          Telur dengan kandungan Omega-3, DHA, dan EPA untuk keluarga di {site.serviceArea}. Pesan via WhatsApp, terima via ojek Anda atau antar gratis zona inti.
+          Telur dengan kandungan Omega-3, DHA, dan EPA untuk keluarga di {site.serviceArea}. Pesan via WhatsApp, terima via ojek Anda atau antar gratis <a href="/#pengiriman" class="font-semibold text-primary underline underline-offset-2">zona inti</a>.
         </p>
         <p class="mt-5 text-2xl lg:text-3xl font-extrabold text-primary">
           Mulai Rp{startingPerUnit.toLocaleString('id-ID')} per butir
         </p>
         <div class="mt-6 flex flex-col sm:flex-row gap-3">
           <WhatsAppButton source="hero" size="lg" />
-          <Button href="#produk" variant="secondary" size="lg" iconRight="arrow_right">Lihat Pilihan Kemasan</Button>
+          <Button href="/#produk" variant="secondary" size="lg" iconRight="arrow_right">Lihat Pilihan Kemasan</Button>
         </div>
         <ul class="mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-sm text-text-muted">
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
-            <span>Zona inti kami antar, luar via <a href="#pengiriman" class="font-semibold text-primary underline underline-offset-2">ojek Anda</a></span>
+            <span>Zona inti kami antar, luar via <a href="/#pengiriman" class="font-semibold text-primary underline underline-offset-2">ojek Anda</a></span>
           </li>
           <li class="flex items-center gap-2">
             <Icon name="check" size={16} class="text-primary shrink-0" />
