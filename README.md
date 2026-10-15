@@ -171,7 +171,7 @@ Proporsi asli: 864×150. Scaling otomatis via `h-* w-auto`.
 
 > **Catatan:** File `.png` di `public/images/` adalah sumber resolusi penuh (1254×1254), dan sumber foto produksi adalah `public/nick-fewings-qlLCBkTSYAI-unsplash.jpg` (3032×2021). Setelah mengganti sumber, buat ulang WebP dengan `node scripts/generate-product-images.mjs`, lalu update `imageAlt` di `src/data/products.ts`.
 
-> **Catatan:** Nomor yang tampil: NKV BUP 3516070-053 (link verifikasi SISNASKV) dan lab SIG 17.1.F.FP. Logo NKV/Halal masih SVG placeholder lokal; SIG raster `sig.png`. Kartu Halal tanpa nomor sertifikat.
+> **Catatan:** Nomor yang tampil: NKV BUP 3516070-053 (link verifikasi SISNASKV), lab SIG SIGS.LHPVIII.2025.210856122, Kesmavet bebas Salmonella No.LKMV A.016.IV.24 dan bebas antibiotik No.LKMV A.017.I.24. Logo NKV/Halal masih SVG placeholder lokal; SIG raster `sig.png`. Kartu Halal tanpa nomor sertifikat.
 
 ### Label brand (cetak)
 
@@ -344,7 +344,7 @@ Lihat `src/icons/README.md` untuk mapping nama ikon.
 | Foto hero | WebP tayang (sumber belum tentu final) | `public/images/hero.webp` |
 | Foto area produksi | Sudah diganti (unsplash, JPG ke WebP) | `public/images/producer.webp` |
 | Nomor sertifikat NKV | Tersedia (BUP 3516070-053) | `src/components/sections/CertificationsSection.astro` |
-| Nomor lab SIG | Tersedia (17.1.F.FP) | `src/components/sections/CertificationsSection.astro`, `src/data/nutrition.ts` |
+| Nomor lab SIG | Tersedia (SIGS.LHPVIII.2025.210856122) | `src/components/sections/CertificationsSection.astro`, `src/data/nutrition.ts` |
 | Cloudflare Analytics token | Belum diisi | `src/layouts/BaseLayout.astro` (komentar) |
 | Domain produksi | `https://ohmega.web.id` | `src/data/site.ts` (`siteUrl`) |
 | Instagram | @ohmega_id (belum diverifikasi) | `src/data/site.ts` |

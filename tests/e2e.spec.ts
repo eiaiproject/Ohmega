@@ -39,8 +39,10 @@ test.describe('Landing page', () => {
     await expect(page.locator('a.skip-link')).toHaveAttribute('href', '#main');
     const jsonLd = page.locator('script[type="application/ld+json"]');
     await expect(jsonLd).toHaveCount(1);
-    await expectTexts(jsonLd, ['LocalBusiness', 'OHMEGA']);
-    expect(await jsonLd.textContent()).toContain('Offer');
+    const jsonLdText = (await jsonLd.textContent()) ?? '';
+    expect(jsonLdText).toContain('LocalBusiness');
+    expect(jsonLdText).toContain('OHMEGA');
+    expect(jsonLdText).toContain('Offer');
   });
 
   test('header navigation targets and contact', async ({ page }) => {
@@ -60,11 +62,11 @@ test.describe('Landing page', () => {
     const hero = page.locator('section').first();
     await expect(page.locator('main h1').first()).toContainText('Telur Omega');
     await expect(hero.locator('a[href*="wa.me"]').first()).toBeVisible();
-    await expect(page.locator('a:has-text("Lihat Pilihan Kemasan")')).toHaveAttribute('href', '#produk');
+    await expect(page.locator('a:has-text("Lihat Pilihan Kemasan")')).toHaveAttribute('href', '/#produk');
     await expect(page.locator('text=/Mulai Rp/').first()).toBeVisible();
     await expect(hero.locator('ul').locator('text=Zona inti kami antar')).toBeVisible();
-    await expect(hero.locator('ul').locator('a[href="#pengiriman"]:has-text("ojek Anda")')).toBeVisible();
-    await expect(hero.locator('img[src="/images/hero.webp"]')).toBeVisible();
+    await expect(hero.locator('ul').locator('a[href="/#pengiriman"]:has-text("ojek Anda")')).toBeVisible();
+    await expect(hero.locator('img[src="/images/hero.webp"]').first()).toBeVisible();
   });
 
   test('products show packs with correct prices', async ({ page }) => {
@@ -95,7 +97,7 @@ test.describe('Landing page', () => {
     await expect(section.locator('h2')).toContainText('Cara Terima');
     await expect(section.locator('iframe')).toHaveCount(1);
     await expect(section.locator('a[href*="wa.me"]').first()).toContainText('Tanya Cara Terima');
-    await expect(section.locator('a[href*="google.com/maps"]')).toContainText('Petunjuk Arah');
+    await expect(section.locator('a[href*="google.com/maps"]').first()).toContainText('Petunjuk Arah');
     await expectTexts(section, ['Perumahan Amartha Safira', 'Ojek yang Anda Pesan', 'memesan ojek sendiri', 'Titik ambil']);
   });
 
@@ -156,7 +158,7 @@ test.describe('Landing page', () => {
       }
     });
     await gotoHome(page);
-    await expect(page.locator('img[src="/images/hero.webp"]')).toBeVisible();
+    await expect(page.locator('img[src="/images/hero.webp"]').first()).toBeVisible();
     await expect(page.locator('#produk article').first()).toBeVisible();
     expect(failed).toEqual([]);
   });

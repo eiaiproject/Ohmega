@@ -1,6 +1,7 @@
 ---
 import BlogLayout from '../../layouts/BlogLayout.astro';
 import ArticleMeta from '../../components/blog/ArticleMeta.astro';
+import Icon from '../../components/common/Icon.astro';
 import WhatsAppButton from '../../components/common/WhatsAppButton.astro';
 import { getAllArticles } from '../../lib/content';
 import { render } from 'astro:content';
@@ -47,7 +48,8 @@ const jsonLd = {
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
   <a href="/blog" class="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:gap-2.5 transition-all mb-6">
-    ← Kembali ke daftar artikel
+    <Icon name="arrow_right" size={16} decorative class="rotate-180" />
+    Kembali ke daftar artikel
   </a>
 
   <h1 class="text-[clamp(1.75rem,3.5vw+0.5rem,2.5rem)] font-extrabold leading-tight text-text text-balance">
